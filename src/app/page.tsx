@@ -1,3 +1,4 @@
+import { Bell } from 'lucide-react';
 import { MobileShell } from '@/components/layout/mobile-shell';
 import { SummaryCards } from './_components/summary-cards';
 import { CategoryBreakdown } from './_components/category-breakdown';
@@ -10,7 +11,7 @@ export default function DashboardPage() {
       <MobileShell
         title="MoneyLog"
         subtitle="2025년 2월"
-        rightAction={<span className="text-xl">🔔</span>}
+        rightAction={<Bell size={20} className="text-gray-500" />}
       >
         <div className="space-y-4 pt-2">
           <SummaryCards />

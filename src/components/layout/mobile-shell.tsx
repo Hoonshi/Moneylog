@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react';
 import { MobileNav } from "./mobile-nav";
 
 interface MobileShellProps {
@@ -21,8 +22,8 @@ export function MobileShell({
     <div className="relative w-full h-full bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
       <div className="bg-white px-4 pt-3 pb-3 flex items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-2">
-          {back && <span className="text-gray-400 text-sm">← </span>}
+        <div className="flex items-center gap-1">
+          {back && <ChevronLeft size={18} className="text-gray-400 -ml-1" />}
           <div>
             <h1 className="text-base font-bold text-gray-900">{title}</h1>
             {subtitle && (

@@ -1,14 +1,16 @@
+import { ChevronDown, Utensils, Home, Car, Gamepad2, Package } from 'lucide-react';
+import type { ElementType } from 'react';
 import { MobileShell } from '@/components/layout/mobile-shell';
 import { MonthlyComparison } from './_components/monthly-comparison';
 import { DailyTrendChart } from './_components/daily-trend-chart';
 import { TopExpenses } from './_components/top-expenses';
 
-const CATEGORY_BREAKDOWN = [
-  { icon: '🍽', cat: '식비', amount: '₩647,000', pct: 35, color: 'bg-orange-400' },
-  { icon: '🏠', cat: '주거', amount: '₩517,000', pct: 28, color: 'bg-blue-400'   },
-  { icon: '🚗', cat: '교통', amount: '₩277,000', pct: 15, color: 'bg-green-400'  },
-  { icon: '🎮', cat: '여가', amount: '₩221,000', pct: 12, color: 'bg-purple-400' },
-  { icon: '📦', cat: '기타', amount: '₩185,000', pct: 10, color: 'bg-gray-400'   },
+const CATEGORY_BREAKDOWN: { Icon: ElementType; cat: string; amount: string; pct: number; color: string }[] = [
+  { Icon: Utensils, cat: '식비', amount: '₩647,000', pct: 35, color: 'bg-orange-400' },
+  { Icon: Home,     cat: '주거', amount: '₩517,000', pct: 28, color: 'bg-blue-400'   },
+  { Icon: Car,      cat: '교통', amount: '₩277,000', pct: 15, color: 'bg-green-400'  },
+  { Icon: Gamepad2, cat: '여가', amount: '₩221,000', pct: 12, color: 'bg-purple-400' },
+  { Icon: Package,  cat: '기타', amount: '₩185,000', pct: 10, color: 'bg-gray-400'   },
 ];
 
 export default function ReportsPage() {
@@ -17,7 +19,9 @@ export default function ReportsPage() {
       <MobileShell
         title="리포트"
         rightAction={
-          <span className="text-xs font-bold text-gray-700">2025.02 ▾</span>
+          <div className="flex items-center gap-0.5 text-xs font-bold text-gray-700">
+            2025.02 <ChevronDown size={14} className="text-gray-400" />
+          </div>
         }
       >
         <div className="space-y-4 pt-2">
@@ -32,7 +36,7 @@ export default function ReportsPage() {
                 <div key={item.cat}>
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm">{item.icon}</span>
+                      <item.Icon size={13} className="text-gray-500" />
                       <span className="text-xs text-gray-700">{item.cat}</span>
                     </div>
                     <div className="flex items-center gap-2">

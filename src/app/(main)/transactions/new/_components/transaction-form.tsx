@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { Utensils, Car, Home, Gamepad2, Package, Pill, BookOpen, Repeat, ChevronDown } from 'lucide-react';
+import type { ElementType } from 'react';
 
-const CATEGORIES = [
-  '🍽 식비', '🚗 교통', '🏠 주거', '🎮 여가', '📦 쇼핑', '💊 의료', '📚 교육', '🔄 구독',
+const CATEGORIES: { Icon: ElementType; label: string }[] = [
+  { Icon: Utensils, label: '식비'   },
+  { Icon: Car,      label: '교통'   },
+  { Icon: Home,     label: '주거'   },
+  { Icon: Gamepad2, label: '여가'   },
+  { Icon: Package,  label: '쇼핑'   },
+  { Icon: Pill,     label: '의료'   },
+  { Icon: BookOpen, label: '교육'   },
+  { Icon: Repeat,   label: '구독'   },
 ];
 
 export function TransactionForm() {
@@ -54,22 +63,23 @@ export function TransactionForm() {
         <div className="flex items-center px-4 py-3.5">
           <span className="text-xs text-gray-500 w-16">날짜</span>
           <span className="text-xs text-gray-700 flex-1">2025-02-20</span>
-          <span className="text-gray-400 text-xs">▾</span>
+          <ChevronDown size={13} className="text-gray-400" />
         </div>
         <div className="px-4 py-3.5">
           <span className="text-xs text-gray-500 block mb-2.5">카테고리</span>
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat, i) => (
               <button
-                key={cat}
+                key={cat.label}
                 onClick={() => setSelectedCat(i)}
-                className={`px-2.5 py-1.5 rounded-full text-[11px] border ${
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] border ${
                   selectedCat === i
                     ? 'border-blue-400 bg-blue-50 text-blue-600 font-medium'
                     : 'border-gray-200 text-gray-500'
                 }`}
               >
-                {cat}
+                <cat.Icon size={11} />
+                {cat.label}
               </button>
             ))}
           </div>

@@ -1,7 +1,10 @@
-const budgets = [
-  { icon: '🍽', cat: '식비', used: 42, total: 50, pct: 84 },
-  { icon: '🚗', cat: '교통', used: 8.5, total: 10, pct: 85 },
-  { icon: '🎮', cat: '여가', used: 18, total: 20, pct: 90 },
+import { Utensils, Car, Gamepad2 } from 'lucide-react';
+import type { ElementType } from 'react';
+
+const budgets: { Icon: ElementType; cat: string; used: number; total: number; pct: number }[] = [
+  { Icon: Utensils, cat: '식비', used: 42, total: 50, pct: 84 },
+  { Icon: Car,      cat: '교통', used: 8.5, total: 10, pct: 85 },
+  { Icon: Gamepad2, cat: '여가', used: 18, total: 20, pct: 90 },
 ];
 
 export function BudgetProgress() {
@@ -16,7 +19,7 @@ export function BudgetProgress() {
           <div key={b.cat}>
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-1.5">
-                <span className="text-sm">{b.icon}</span>
+                <b.Icon size={13} className="text-gray-400" />
                 <span className="text-xs text-gray-700">{b.cat}</span>
               </div>
               <span className={`text-[10px] font-semibold ${b.pct > 80 ? 'text-red-500' : 'text-gray-500'}`}>

@@ -1,5 +1,7 @@
+import type { ElementType } from 'react';
+
 interface TransactionItemProps {
-  icon: string;
+  Icon: ElementType;
   name: string;
   cat: string;
   memo: string;
@@ -9,12 +11,12 @@ interface TransactionItemProps {
 }
 
 export function TransactionItem({
-  icon, name, cat, memo, amount, neg, isLast,
+  Icon, name, cat, memo, amount, neg, isLast,
 }: TransactionItemProps) {
   return (
     <div className={`flex items-center gap-3 px-4 py-3 ${isLast ? '' : 'border-b border-gray-50'}`}>
-      <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm ${neg ? 'bg-gray-50' : 'bg-blue-50'}`}>
-        {icon}
+      <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${neg ? 'bg-gray-50' : 'bg-blue-50'}`}>
+        <Icon size={16} className={neg ? 'text-gray-500' : 'text-blue-500'} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs font-medium text-gray-800">{name}</p>

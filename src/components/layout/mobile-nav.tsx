@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LayoutDashboard, ArrowLeftRight, Plus, Target, Settings } from 'lucide-react';
 import { ROUTES } from '@/constants/routes';
 
 const tabs = [
-  { href: ROUTES.HOME,             icon: '📊', label: '홈'     },
-  { href: ROUTES.TRANSACTIONS,     icon: '💳', label: '내역'   },
-  { href: ROUTES.TRANSACTION_NEW,  icon: '➕', label: '',       isCenter: true },
-  { href: ROUTES.BUDGET,           icon: '🎯', label: '예산'   },
-  { href: ROUTES.SETTINGS,         icon: '⚙️', label: '더보기' },
+  { href: ROUTES.HOME,            Icon: LayoutDashboard, label: '홈'     },
+  { href: ROUTES.TRANSACTIONS,    Icon: ArrowLeftRight,  label: '내역'   },
+  { href: ROUTES.TRANSACTION_NEW, Icon: Plus,            label: '',       isCenter: true },
+  { href: ROUTES.BUDGET,          Icon: Target,          label: '예산'   },
+  { href: ROUTES.SETTINGS,        Icon: Settings,        label: '더보기' },
 ];
 
 export function MobileNav() {
@@ -27,9 +28,9 @@ export function MobileNav() {
           <Link
             key={tab.href}
             href={tab.href}
-            className="w-12 h-12 -mt-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg shadow-lg shadow-blue-200"
+            className="w-12 h-12 -mt-4 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-200"
           >
-            {tab.icon}
+            <tab.Icon size={22} strokeWidth={2.5} />
           </Link>
         ) : (
           <Link
@@ -39,7 +40,7 @@ export function MobileNav() {
               isActive(tab.href) ? 'text-blue-500' : 'text-gray-400'
             }`}
           >
-            <span className="text-base">{tab.icon}</span>
+            <tab.Icon size={20} strokeWidth={isActive(tab.href) ? 2.5 : 1.8} />
             <span className="text-[10px]">{tab.label}</span>
           </Link>
         ),

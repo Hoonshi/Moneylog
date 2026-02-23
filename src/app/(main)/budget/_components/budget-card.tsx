@@ -1,12 +1,15 @@
+import { AlertTriangle } from 'lucide-react';
+import type { ElementType } from 'react';
+
 interface BudgetCardProps {
-  icon: string;
+  Icon: ElementType;
   cat: string;
   used: number;
   total: number;
   color: string;
 }
 
-export function BudgetCard({ icon, cat, used, total, color }: BudgetCardProps) {
+export function BudgetCard({ Icon, cat, used, total, color }: BudgetCardProps) {
   const pct = Math.round((used / total) * 100);
   const isOver = pct > 80;
 
@@ -14,7 +17,9 @@ export function BudgetCard({ icon, cat, used, total, color }: BudgetCardProps) {
     <div className="bg-white rounded-xl p-4">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-base">{icon}</span>
+          <div className="w-7 h-7 bg-gray-50 rounded-full flex items-center justify-center shrink-0">
+            <Icon size={14} className="text-gray-500" />
+          </div>
           <span className="text-xs font-semibold text-gray-700">{cat}</span>
         </div>
         <span className={`text-xs font-bold ${isOver ? 'text-red-500' : 'text-gray-600'}`}>
@@ -32,7 +37,10 @@ export function BudgetCard({ icon, cat, used, total, color }: BudgetCardProps) {
         <span className="text-[10px] text-gray-400">₩{(total / 10000).toFixed(0)}만</span>
       </div>
       {isOver && (
-        <p className="text-[10px] text-red-400 mt-1">⚠️ 예산 초과 주의</p>
+        <div className="flex items-center gap-1 mt-1">
+          <AlertTriangle size={10} className="text-red-400" />
+          <p className="text-[10px] text-red-400">예산 초과 주의</p>
+        </div>
       )}
     </div>
   );

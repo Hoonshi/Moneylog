@@ -1,30 +1,31 @@
+import { Utensils, Car, Repeat, Package, Wallet } from 'lucide-react';
 import { TransactionItem } from './transaction-item';
 
 const DATE_GROUPS = [
   {
     label: '2월 20일 목요일',
     items: [
-      { icon: '🍽', name: '스타벅스 강남점', cat: '식비', memo: '아메리카노', amount: '-₩6,500', neg: true },
-      { icon: '🍽', name: '김밥천국',         cat: '식비', memo: '점심',      amount: '-₩8,000', neg: true },
+      { Icon: Utensils, name: '스타벅스 강남점', cat: '식비', memo: '아메리카노', amount: '-₩6,500', neg: true },
+      { Icon: Utensils, name: '김밥천국',         cat: '식비', memo: '점심',      amount: '-₩8,000', neg: true },
     ],
   },
   {
     label: '2월 19일 수요일',
     items: [
-      { icon: '🚗', name: '카카오택시', cat: '교통', memo: '',        amount: '-₩12,000', neg: true },
-      { icon: '🎮', name: '넷플릭스',  cat: '구독', memo: '월 구독료', amount: '-₩17,000', neg: true },
+      { Icon: Car,    name: '카카오택시', cat: '교통', memo: '',         amount: '-₩12,000', neg: true },
+      { Icon: Repeat, name: '넷플릭스',  cat: '구독', memo: '월 구독료', amount: '-₩17,000', neg: true },
     ],
   },
   {
     label: '2월 18일 화요일',
     items: [
-      { icon: '📦', name: '쿠팡', cat: '쇼핑', memo: '생필품', amount: '-₩32,000', neg: true },
+      { Icon: Package, name: '쿠팡', cat: '쇼핑', memo: '생필품', amount: '-₩32,000', neg: true },
     ],
   },
   {
     label: '2월 15일 토요일',
     items: [
-      { icon: '💰', name: '월급', cat: '급여', memo: '2월 급여', amount: '+₩3,200,000', neg: false },
+      { Icon: Wallet, name: '월급', cat: '급여', memo: '2월 급여', amount: '+₩3,200,000', neg: false },
     ],
   },
 ];
