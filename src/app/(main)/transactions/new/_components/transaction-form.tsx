@@ -1,0 +1,99 @@
+'use client';
+
+import { useState } from 'react';
+
+const CATEGORIES = [
+  '🍽 식비', '🚗 교통', '🏠 주거', '🎮 여가', '📦 쇼핑', '💊 의료', '📚 교육', '🔄 구독',
+];
+
+export function TransactionForm() {
+  const [type, setType] = useState<'expense' | 'income'>('expense');
+  const [selectedCat, setSelectedCat] = useState(0);
+
+  return (
+    <div className="space-y-5 pt-2">
+      {/* Type Toggle */}
+      <div className="flex bg-gray-100 rounded-xl p-1">
+        <button
+          onClick={() => setType('expense')}
+          className={`flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-colors ${
+            type === 'expense' ? 'bg-white text-red-500 shadow-sm' : 'text-gray-400'
+          }`}
+        >
+          지출
+        </button>
+        <button
+          onClick={() => setType('income')}
+          className={`flex-1 py-2.5 text-center text-xs font-medium rounded-lg transition-colors ${
+            type === 'income' ? 'bg-white text-blue-500 shadow-sm' : 'text-gray-400'
+          }`}
+        >
+          수입
+        </button>
+      </div>
+
+      {/* Amount Display */}
+      <div className="text-center py-4">
+        <p className="text-[11px] text-gray-400 mb-2">금액</p>
+        <div className="flex items-center justify-center gap-1">
+          <span className="text-2xl text-gray-300 font-light">₩</span>
+          <span className="text-3xl font-bold text-gray-800">0</span>
+        </div>
+      </div>
+
+      {/* Form Fields */}
+      <div className="bg-white rounded-xl divide-y divide-gray-50">
+        <div className="flex items-center px-4 py-3.5">
+          <span className="text-xs text-gray-500 w-16">내용</span>
+          <input
+            type="text"
+            placeholder="예: 스타벅스, 월급..."
+            className="text-xs text-gray-700 flex-1 outline-none placeholder:text-gray-300"
+          />
+        </div>
+        <div className="flex items-center px-4 py-3.5">
+          <span className="text-xs text-gray-500 w-16">날짜</span>
+          <span className="text-xs text-gray-700 flex-1">2025-02-20</span>
+          <span className="text-gray-400 text-xs">▾</span>
+        </div>
+        <div className="px-4 py-3.5">
+          <span className="text-xs text-gray-500 block mb-2.5">카테고리</span>
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat, i) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCat(i)}
+                className={`px-2.5 py-1.5 rounded-full text-[11px] border ${
+                  selectedCat === i
+                    ? 'border-blue-400 bg-blue-50 text-blue-600 font-medium'
+                    : 'border-gray-200 text-gray-500'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="px-4 py-3.5">
+          <span className="text-xs text-gray-500 block mb-1.5">메모</span>
+          <input
+            type="text"
+            placeholder="메모를 입력하세요..."
+            className="text-xs text-gray-700 w-full outline-none placeholder:text-gray-300"
+          />
+        </div>
+      </div>
+
+      {/* Recurring Toggle */}
+      <div className="bg-white rounded-xl px-4 py-3.5 flex items-center justify-between">
+        <div>
+          <p className="text-xs font-medium text-gray-700">반복 거래</p>
+          <p className="text-[10px] text-gray-400 mt-0.5">매월 자동으로 기록됩니다</p>
+        </div>
+        <div className="w-10 h-5 bg-gray-200 rounded-full relative">
+          <div className="w-4 h-4 bg-white rounded-full absolute left-0.5 top-0.5 shadow-sm" />
+        </div>
+      </div>
+    </div>
+  );
+}
