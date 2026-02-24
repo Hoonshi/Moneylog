@@ -1,5 +1,3 @@
-//추후에 RHF로 리팩토링 예정
-
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
