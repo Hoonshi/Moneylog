@@ -1,6 +1,6 @@
 export function SummaryCards() {
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-white">
+    <div className="bg-main rounded-2xl p-4 text-white">
       <p className="text-xs text-blue-100">이번 달 잔액</p>
       <p className="text-2xl font-bold mt-1">₩1,353,000</p>
       <div className="flex gap-4 mt-3">

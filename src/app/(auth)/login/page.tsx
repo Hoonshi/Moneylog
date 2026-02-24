@@ -23,7 +23,7 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col justify-center px-8">
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3">
+          <div className="w-16 h-16 bg-main rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3">
             ₩
           </div>
           <h1 className="text-xl font-bold text-gray-800">MoneyLog</h1>
@@ -49,7 +49,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="bg-blue-500 text-white rounded-xl py-3 text-center text-sm font-semibold">
+          <div className="bg-main text-white rounded-xl py-3 text-center text-sm font-semibold">
             <button onClick={handleSubmit} className="cursor-pointer w-full">
               로그인
             </button>

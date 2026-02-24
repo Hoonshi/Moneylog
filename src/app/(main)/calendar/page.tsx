@@ -1,7 +1,7 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { MobileShell } from '@/components/layout/mobile-shell';
-import { CalendarGrid } from './_components/calendar-grid';
-import { CalendarGridDesktop } from './_components/calendar-grid-desktop';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { MobileShell } from "@/components/layout/mobileShell";
+import { CalendarGrid } from "./_components/calendar-grid";
+import { CalendarGridDesktop } from "./_components/calendar-grid-desktop";
 
 export default function CalendarPage() {
   return (
@@ -32,9 +32,15 @@ export default function CalendarPage() {
             <p className="text-xs text-gray-400 mt-0.5">날짜별 거래 내역</p>
           </div>
           <div className="flex items-center gap-2">
-            <ChevronLeft size={16} className="text-gray-400 cursor-pointer hover:text-gray-600" />
+            <ChevronLeft
+              size={16}
+              className="text-gray-400 cursor-pointer hover:text-gray-600"
+            />
             <span className="text-xs font-bold text-gray-700">2025.02</span>
-            <ChevronRight size={16} className="text-gray-400 cursor-pointer hover:text-gray-600" />
+            <ChevronRight
+              size={16}
+              className="text-gray-400 cursor-pointer hover:text-gray-600"
+            />
           </div>
         </header>
         <div className="flex-1 overflow-auto p-5">

@@ -21,27 +21,29 @@ export default function SignupPage() {
           </div>
 
           {[
-            { label: '이름', placeholder: '홍길동' },
-            { label: '이메일', placeholder: 'email@example.com' },
-            { label: '비밀번호', placeholder: '••••••••' },
-            { label: '비밀번호 확인', placeholder: '••••••••' },
+            { label: "이름", placeholder: "홍길동" },
+            { label: "이메일", placeholder: "email@example.com" },
+            { label: "비밀번호", placeholder: "••••••••" },
+            { label: "비밀번호 확인", placeholder: "••••••••" },
           ].map((field) => (
             <div key={field.label}>
               <label className="text-xs text-gray-600 mb-1 block">
                 {field.label}
               </label>
               <div className="border border-gray-200 rounded-lg px-3 py-2">
-                <span className="text-sm text-gray-300">{field.placeholder}</span>
+                <span className="text-sm text-gray-300">
+                  {field.placeholder}
+                </span>
               </div>
             </div>
           ))}
 
-          <div className="bg-blue-500 text-white px-3 py-1.5 text-sm rounded-md font-medium text-center cursor-pointer hover:bg-blue-600 transition-colors">
+          <div className="bg-main text-white px-3 py-1.5 text-sm rounded-md font-medium text-center cursor-pointer hover:bg-blue-600 transition-colors">
             가입하기
           </div>
 
           <p className="text-xs text-center text-gray-400">
-            이미 계정이 있으신가요?{' '}
+            이미 계정이 있으신가요?{" "}
             <a href="/login" className="text-blue-500">
               로그인
             </a>

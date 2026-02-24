@@ -10,3 +10,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  .bg-main {
+    background: linear-gradient(135deg, #4d9fff 0%, #3182f6 50%, #1b6cf2 100%);
+  }
+}

@@ -1,5 +1,5 @@
 import { Bell, ChevronDown } from "lucide-react";
-import { MobileShell } from "@/components/layout/mobile-shell";
+import { MobileShell } from "@/components/layout/mobileShell";
 import { SummaryCards } from "@/app/(main)/dashboard/_components/summary-cards";
 import { CategoryBreakdown } from "@/app/(main)/dashboard/_components/category-breakdown";
 import { BudgetProgress } from "@/app/(main)/dashboard/_components/budget-progress";
@@ -27,7 +27,7 @@ export default function DashboardPage() {
 
       {/* PC버전 */}
       <div className="hidden lg:flex flex-col h-full bg-white">
-        <header className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
+        <header className="flex items-center justify-between px-6 py-4 h-17 border-b border-gray-100 shrink-0">
           <div>
             <h2 className="text-sm font-bold text-gray-800">대시보드</h2>
             <p className="text-xs text-gray-400 mt-0.5">2025년 2월 재무 현황</p>

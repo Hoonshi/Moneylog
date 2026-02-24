@@ -1,5 +1,5 @@
-import { ChevronLeft } from 'lucide-react';
-import { MobileNav } from "./mobile-nav";
+import { ChevronLeft } from "lucide-react";
+import { MobileNav } from "./mobileNav";
 
 interface MobileShellProps {
   children: React.ReactNode;

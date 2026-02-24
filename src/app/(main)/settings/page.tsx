@@ -7,7 +7,7 @@ import {
   Upload,
   LogOut,
 } from "lucide-react";
-import { MobileShell } from "@/components/layout/mobile-shell";
+import { MobileShell } from "@/components/layout/mobileShell";
 import { ProfileSection } from "./_components/profile-section";
 import { SettingsDesktop } from "./_components/settings-desktop";
 

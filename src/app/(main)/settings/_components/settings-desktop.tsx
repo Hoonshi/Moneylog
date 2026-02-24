@@ -54,7 +54,7 @@ export function SettingsDesktop() {
           ))}
         </div>
         <div className="mt-2">
-          <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-500 text-white cursor-pointer">
+          <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-main text-white cursor-pointer">
             + 카테고리 추가
           </span>
         </div>

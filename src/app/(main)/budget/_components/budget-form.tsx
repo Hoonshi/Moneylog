@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { DEFAULT_CATEGORIES } from '@/constants/categories';
+import { useState } from "react";
+import { DEFAULT_CATEGORIES } from "@/constants/categories";
 
 interface BudgetFormProps {
   onClose?: () => void;
 }
 
 export function BudgetForm({ onClose }: BudgetFormProps) {
-  const [categoryId, setCategoryId] = useState('');
-  const [amount, setAmount] = useState('');
+  const [categoryId, setCategoryId] = useState("");
+  const [amount, setAmount] = useState("");
 
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-xs font-medium text-gray-600 mb-1.5 block">카테고리</label>
+        <label className="text-xs font-medium text-gray-600 mb-1.5 block">
+          카테고리
+        </label>
         <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
@@ -23,14 +25,16 @@ export function BudgetForm({ onClose }: BudgetFormProps) {
           <option value="">카테고리 선택...</option>
           {DEFAULT_CATEGORIES.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.icon} {cat.name}
+              {cat.name}
             </option>
           ))}
         </select>
       </div>
 
       <div>
-        <label className="text-xs font-medium text-gray-600 mb-1.5 block">예산 금액</label>
+        <label className="text-xs font-medium text-gray-600 mb-1.5 block">
+          예산 금액
+        </label>
         <div className="border border-gray-200 rounded-lg px-3 py-2.5 flex items-center gap-2">
           <span className="text-gray-400 text-sm">₩</span>
           <input
@@ -44,7 +48,7 @@ export function BudgetForm({ onClose }: BudgetFormProps) {
       </div>
 
       <div className="flex gap-2 pt-2">
-        <button className="flex-1 bg-blue-500 text-white px-3 py-1.5 text-sm rounded-md font-medium hover:bg-blue-600">
+        <button className="flex-1 bg-main text-white px-3 py-1.5 text-sm rounded-md font-medium hover:bg-blue-600">
           저장
         </button>
         <button

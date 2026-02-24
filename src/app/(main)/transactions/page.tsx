@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { Search, Plus } from 'lucide-react';
-import { MobileShell } from '@/components/layout/mobile-shell';
-import { TransactionFilters } from './_components/transaction-filters';
-import { TransactionList } from './_components/transaction-list';
-import { TransactionsDesktop } from './_components/transactions-desktop';
-import { ROUTES } from '@/constants/routes';
+import Link from "next/link";
+import { Search, Plus } from "lucide-react";
+import { MobileShell } from "@/components/layout/mobileShell";
+import { TransactionFilters } from "./_components/transaction-filters";
+import { TransactionList } from "./_components/transaction-list";
+import { TransactionsDesktop } from "./_components/transactions-desktop";
+import { ROUTES } from "@/constants/routes";
 
 export default function TransactionsPage() {
   return (
@@ -31,7 +31,7 @@ export default function TransactionsPage() {
           </div>
           <Link
             href={ROUTES.TRANSACTION_NEW}
-            className="flex items-center gap-1 text-xs text-white bg-blue-500 rounded-md px-3 py-1.5 hover:bg-blue-600"
+            className="flex items-center gap-1 text-xs text-white bg-main rounded-md px-3 py-1.5 hover:bg-blue-600"
           >
             <Plus size={13} strokeWidth={2.5} /> 새 거래
           </Link>

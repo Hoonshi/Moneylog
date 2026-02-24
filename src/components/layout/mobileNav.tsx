@@ -1,23 +1,29 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ArrowLeftRight, Plus, Target, Settings } from 'lucide-react';
-import { ROUTES } from '@/constants/routes';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  ArrowLeftRight,
+  Plus,
+  Target,
+  Settings,
+} from "lucide-react";
+import { ROUTES } from "@/constants/routes";
 
 const tabs = [
-  { href: ROUTES.HOME,            Icon: LayoutDashboard, label: '홈'     },
-  { href: ROUTES.TRANSACTIONS,    Icon: ArrowLeftRight,  label: '내역'   },
-  { href: ROUTES.TRANSACTION_NEW, Icon: Plus,            label: '',       isCenter: true },
-  { href: ROUTES.BUDGET,          Icon: Target,          label: '예산'   },
-  { href: ROUTES.SETTINGS,        Icon: Settings,        label: '더보기' },
+  { href: ROUTES.HOME, Icon: LayoutDashboard, label: "홈" },
+  { href: ROUTES.TRANSACTIONS, Icon: ArrowLeftRight, label: "내역" },
+  { href: ROUTES.TRANSACTION_NEW, Icon: Plus, label: "", isCenter: true },
+  { href: ROUTES.BUDGET, Icon: Target, label: "예산" },
+  { href: ROUTES.SETTINGS, Icon: Settings, label: "더보기" },
 ];
 
 export function MobileNav() {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
@@ -28,7 +34,7 @@ export function MobileNav() {
           <Link
             key={tab.href}
             href={tab.href}
-            className="w-12 h-12 -mt-4 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-200"
+            className="w-12 h-12 -mt-4 bg-main rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-200"
           >
             <tab.Icon size={22} strokeWidth={2.5} />
           </Link>
@@ -37,7 +43,7 @@ export function MobileNav() {
             key={tab.href}
             href={tab.href}
             className={`flex flex-col items-center gap-0.5 py-1 px-2 ${
-              isActive(tab.href) ? 'text-blue-500' : 'text-gray-400'
+              isActive(tab.href) ? "text-blue-500" : "text-gray-400"
             }`}
           >
             <tab.Icon size={20} strokeWidth={isActive(tab.href) ? 2.5 : 1.8} />
