@@ -32,12 +32,12 @@ export default async function transactionList(
   if (filter.categoryId) {
     query = query.eq("category_id", filter.categoryId);
   }
-  if (filter.startDate) {
-    query = query.gte("date", filter.startDate);
-  }
-  if (filter.endDate) {
-    query = query.lte("date", filter.endDate);
-  }
+  // if (filter.startDate) {
+  //   query = query.gte("date", filter.startDate);
+  // }
+  // if (filter.endDate) {
+  //   query = query.lte("date", filter.endDate);
+  // }
   if (filter.search) {
     query = query.ilike("title", `%${filter.search}%`);
   }

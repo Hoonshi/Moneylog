@@ -22,7 +22,7 @@ export function MobileShell({
   return (
     <div className="relative w-full h-full bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-white px-4 pt-3 pb-3 flex items-center justify-between flex-shrink-0">
+      <div className="bg-white px-4 pt-3 pb-3 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-1">
           <Link href="/transactions">
             {back && <ChevronLeft size={18} className="text-gray-400 -ml-1" />}
