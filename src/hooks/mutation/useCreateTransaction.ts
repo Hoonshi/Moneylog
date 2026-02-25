@@ -3,7 +3,11 @@ import { transactionKeys } from "@/lib/queryKey";
 import type { TransactionInsert } from "@/types/database";
 import createTransaction from "@/apis/transaction/createTransaction";
 
-export function useCreateTransaction() {
+export function useCreateTransaction({
+  formReset,
+}: {
+  formReset?: () => void;
+}) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -12,6 +16,7 @@ export function useCreateTransaction() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: transactionKeys.lists() });
+      formReset?.();
     },
   });
 }

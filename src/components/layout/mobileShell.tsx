@@ -1,5 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import { MobileNav } from "./mobileNav";
+import Link from "next/link";
 
 interface MobileShellProps {
   children: React.ReactNode;
@@ -23,7 +24,9 @@ export function MobileShell({
       {/* Header */}
       <div className="bg-white px-4 pt-3 pb-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-1">
-          {back && <ChevronLeft size={18} className="text-gray-400 -ml-1" />}
+          <Link href="/transactions">
+            {back && <ChevronLeft size={18} className="text-gray-400 -ml-1" />}
+          </Link>
           <div>
             <h1 className="text-base font-bold text-gray-900">{title}</h1>
             {subtitle && (

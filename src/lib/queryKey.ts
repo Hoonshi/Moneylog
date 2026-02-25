@@ -11,3 +11,8 @@ export const transactionKeys = {
   details: () => [...transactionKeys.all, "detail"] as const,
   detail: (id: string) => [...transactionKeys.details(), id] as const,
 };
+
+export const categoryKeys = {
+  all: ["categories"] as const,
+  list: (type?: string) => [...categoryKeys.all, type] as const,
+};

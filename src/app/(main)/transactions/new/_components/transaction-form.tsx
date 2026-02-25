@@ -1,41 +1,87 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Utensils,
-  Car,
-  Home,
-  Gamepad2,
-  Package,
-  Pill,
-  BookOpen,
-  Repeat,
-  ChevronDown,
-} from "lucide-react";
-import type { ElementType } from "react";
-
-const CATEGORIES: { Icon: ElementType; label: string }[] = [
-  { Icon: Utensils, label: "식비" },
-  { Icon: Car, label: "교통" },
-  { Icon: Home, label: "주거" },
-  { Icon: Gamepad2, label: "여가" },
-  { Icon: Package, label: "쇼핑" },
-  { Icon: Pill, label: "의료" },
-  { Icon: BookOpen, label: "교육" },
-  { Icon: Repeat, label: "구독" },
-];
+import { ChevronDown } from "lucide-react";
+import { useCreateTransaction } from "@/hooks/mutation/useCreateTransaction";
+import { useCategories } from "@/hooks/query/useCategories";
 
 export function TransactionForm() {
   const [type, setType] = useState<"expense" | "income">("expense");
-  const [selectedCat, setSelectedCat] = useState(0);
+  const [amount, setAmount] = useState("");
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [memo, setMemo] = useState("");
+
+  //db에 저장한 카테고리 불러오기
+  const { data: categories } = useCategories(type);
+  const [selectedCat, setSelectedCat] = useState<string>("");
+  const [errors, setErrors] = useState({
+    title: "",
+    amount: "",
+    date: "",
+    category: "",
+  });
+
+  //에러 검증 함수
+  const validate = () => {
+    const newErrors = {
+      title: title ? "" : "내용을 입력해주세요.",
+      amount: amount ? "" : "금액을 입력해주세요.",
+      date: date ? "" : "날짜를 입력해주세요.",
+      category: selectedCat ? "" : "카테고리를 선택해주세요.",
+    };
+
+    setErrors(newErrors);
+
+    return Object.values(newErrors).some((value) => value !== "");
+  };
+
+  // 거래 생성 및 제출
+  const { mutate } = useCreateTransaction({
+    //성공 시 폼 초기화
+    formReset: () => {
+      setType("expense");
+      setAmount("");
+      setTitle("");
+      setDate("");
+      setMemo("");
+      setSelectedCat("");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    //유효성 검사
+    const hasError = validate();
+    if (hasError) return;
+
+    //거래 생성 뮤테이션 실행
+    mutate({
+      type,
+      amount: Number(amount),
+      title,
+      date,
+      memo,
+      category_id: selectedCat,
+    });
+  };
 
   return (
-    <div className="space-y-5 pt-2">
+    <form
+      id="transaction-form"
+      onSubmit={handleSubmit}
+      className="space-y-5 pt-2"
+    >
       {/* Type Toggle */}
       <div className="flex bg-gray-100 rounded-xl p-1">
         <button
-          onClick={() => setType("expense")}
-          className={`flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-colors ${
+          type="button"
+          onClick={() => {
+            setType("expense");
+            setSelectedCat("");
+          }}
+          className={`cursor-pointer flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-colors ${
             type === "expense"
               ? "bg-white text-red-500 shadow-sm"
               : "text-gray-400"
@@ -44,8 +90,12 @@ export function TransactionForm() {
           지출
         </button>
         <button
-          onClick={() => setType("income")}
-          className={`flex-1 py-2.5 text-center text-xs font-medium rounded-lg transition-colors ${
+          type="button"
+          onClick={() => {
+            setType("income");
+            setSelectedCat("");
+          }}
+          className={`cursor-pointer flex-1 py-2.5 text-center text-xs font-medium rounded-lg transition-colors ${
             type === "income"
               ? "bg-white text-blue-500 shadow-sm"
               : "text-gray-400"
@@ -55,58 +105,99 @@ export function TransactionForm() {
         </button>
       </div>
 
-      {/* Amount Display */}
+      {/* 금액 */}
       <div className="text-center py-4">
-        <p className="text-[11px] text-gray-400 mb-2">금액</p>
+        <label className="text-[11px] text-gray-400 mb-2">금액</label>
         <div className="flex items-center justify-center gap-1">
           <span className="text-2xl text-gray-300 font-light">₩</span>
-          <span className="text-3xl font-bold text-gray-800">0</span>
+          <input
+            type="number"
+            name="amount"
+            className="text-3xl font-bold text-gray-800 w-46 text-center outline-none"
+            placeholder="0"
+            //제어 컴포넌트
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
         </div>
+        {errors.amount && (
+          <p className="text-[10px] text-red-500 mt-1 ml-16">{errors.amount}</p>
+        )}
       </div>
 
-      {/* Form Fields */}
       <div className="bg-white rounded-xl divide-y divide-gray-50">
+        {/* 내용 */}
         <div className="flex items-center px-4 py-3.5">
           <span className="text-xs text-gray-500 w-16">내용</span>
           <input
             type="text"
+            name="title"
             placeholder="예: 스타벅스, 월급..."
             className="text-xs text-gray-700 flex-1 outline-none placeholder:text-gray-300"
+            //제어 컴포넌트
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
+          {errors.title && (
+            <p className="text-[10px] text-red-500 mt-1 ml-16">
+              {errors.title}
+            </p>
+          )}
         </div>
+        {/* 날짜 */}
         <div className="flex items-center px-4 py-3.5">
           <span className="text-xs text-gray-500 w-16">날짜</span>
-          <span className="text-xs text-gray-700 flex-1">2025-02-20</span>
+          <input
+            type="date"
+            name="date"
+            className="text-xs text-gray-700 flex-1 outline-none"
+            //제어 컴포넌트
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
           <ChevronDown size={13} className="text-gray-400" />
+          {errors.date && (
+            <p className="text-[10px] text-red-500 mt-1 ml-16">{errors.date}</p>
+          )}
         </div>
+        {/* 카테고리 */}
         <div className="px-4 py-3.5">
           <span className="text-xs text-gray-500 block mb-2.5">카테고리</span>
           <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((cat, i) => (
+            {categories?.map((cat) => (
               <button
-                key={cat.label}
-                onClick={() => setSelectedCat(i)}
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCat(cat.id)}
                 className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] border ${
-                  selectedCat === i
+                  selectedCat === cat.id
                     ? "border-blue-400 bg-blue-50 text-blue-600 font-medium"
                     : "border-gray-200 text-gray-500"
                 }`}
               >
-                <cat.Icon size={11} />
-                {cat.label}
+                {cat.icon} {cat.name}
               </button>
             ))}
           </div>
+          {errors.category && (
+            <p className="text-[10px] text-red-500 mt-1 ml-16">
+              {errors.category}
+            </p>
+          )}
         </div>
+        {/* 메모 */}
         <div className="px-4 py-3.5">
           <span className="text-xs text-gray-500 block mb-1.5">메모</span>
           <input
             type="text"
             placeholder="메모를 입력하세요..."
             className="text-xs text-gray-700 w-full outline-none placeholder:text-gray-300"
+            //제어 컴포넌트
+            value={memo}
+            onChange={(e) => setMemo(e.target.value)}
           />
         </div>
       </div>
-    </div>
+    </form>
   );
 }

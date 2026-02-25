@@ -11,9 +11,13 @@ export default function TransactionNewPage() {
           hideNav
           back
           rightAction={
-            <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-main text-white">
+            <button
+              type="submit"
+              form="transaction-form"
+              className="cursor-pointer px-2.5 py-1 rounded-full text-[11px] font-medium bg-main text-white"
+            >
               저장
-            </span>
+            </button>
           }
         >
           <TransactionForm />
@@ -33,7 +37,11 @@ export default function TransactionNewPage() {
             <button className="cursor-pointer text-xs text-gray-500 border border-gray-200 rounded-md px-3 py-1.5 hover:bg-gray-50">
               취소
             </button>
-            <button className="cursor-pointer text-xs text-white bg-main rounded-md px-3 py-1.5 hover:bg-blue-600">
+            <button
+              type="submit"
+              form="transaction-form"
+              className="cursor-pointer text-xs text-white bg-main rounded-md px-3 py-1.5 hover:bg-blue-600"
+            >
               저장
             </button>
           </div>
