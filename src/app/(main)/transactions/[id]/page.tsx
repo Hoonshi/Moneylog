@@ -1,11 +1,14 @@
+import Link from "next/link";
 import { MobileShell } from "@/components/layout/mobileShell";
 import { TransactionDetail } from "./_components/transaction-detail";
+import DetailUpdateDeleteButton from "./_components/detailUpdateDeleteButton";
 
-export default function TransactionDetailPage({
+export default async function TransactionDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   return (
     <div className="h-full">
       {/* Mobile */}
@@ -14,18 +17,9 @@ export default function TransactionDetailPage({
           title="거래 상세"
           hideNav
           back
-          rightAction={
-            <div className="flex gap-2">
-              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600">
-                수정
-              </span>
-              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600">
-                삭제
-              </span>
-            </div>
-          }
+          rightAction={<DetailUpdateDeleteButton id={id} />}
         >
-          <TransactionDetail id={params.id} />
+          <TransactionDetail id={id} />
         </MobileShell>
       </div>
 
@@ -37,17 +31,20 @@ export default function TransactionDetailPage({
             <p className="text-xs text-gray-400 mt-0.5">거래 내역 상세 정보</p>
           </div>
           <div className="flex items-center gap-2">
-            <button className="text-xs text-gray-600 border border-gray-200 rounded-md px-3 py-1.5 hover:bg-gray-50">
+            <Link
+              href={`/transactions/${id}/edit`}
+              className="cursor-pointer text-xs text-gray-600 border border-gray-200 rounded-md px-3 py-1.5 hover:bg-gray-50"
+            >
               수정
-            </button>
-            <button className="text-xs text-red-500 border border-red-200 rounded-md px-3 py-1.5 hover:bg-red-50">
+            </Link>
+            <button className="cursor-pointer text-xs text-red-500 border border-red-200 rounded-md px-3 py-1.5 hover:bg-red-50">
               삭제
             </button>
           </div>
         </header>
         <div className="flex-1 overflow-auto p-5">
           <div className="max-w-lg mx-auto">
-            <TransactionDetail id={params.id} />
+            <TransactionDetail id={id} />
           </div>
         </div>
       </div>

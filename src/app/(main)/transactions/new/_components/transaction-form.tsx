@@ -1,20 +1,42 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { useCreateTransaction } from "@/hooks/mutation/useCreateTransaction";
+import { useUpdateTransaction } from "@/hooks/mutation/useUpdateTransaction";
 import { useCategories } from "@/hooks/query/useCategories";
 
-export function TransactionForm() {
-  const [type, setType] = useState<"expense" | "income">("expense");
-  const [amount, setAmount] = useState("");
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [memo, setMemo] = useState("");
+interface TransactionFormProps {
+  initialValues?: {
+    type: "expense" | "income";
+    amount: number;
+    title: string;
+    date: string;
+    memo?: string;
+    category_id: string;
+  };
+  transactionId?: string;
+}
+
+export function TransactionForm({
+  initialValues,
+  transactionId,
+}: TransactionFormProps = {}) {
+  const router = useRouter();
+  const [type, setType] = useState<"expense" | "income">(
+    initialValues?.type ?? "expense",
+  );
+  const [amount, setAmount] = useState(initialValues?.amount ?? "");
+  const [title, setTitle] = useState(initialValues?.title ?? "");
+  const [date, setDate] = useState(initialValues?.date ?? "");
+  const [memo, setMemo] = useState(initialValues?.memo ?? "");
 
   //db에 저장한 카테고리 불러오기
   const { data: categories } = useCategories(type);
-  const [selectedCat, setSelectedCat] = useState<string>("");
+  const [selectedCat, setSelectedCat] = useState<string>(
+    initialValues?.category_id ?? "",
+  );
   const [errors, setErrors] = useState({
     title: "",
     amount: "",
@@ -36,9 +58,7 @@ export function TransactionForm() {
     return Object.values(newErrors).some((value) => value !== "");
   };
 
-  // 거래 생성 및 제출
-  const { mutate } = useCreateTransaction({
-    //성공 시 폼 초기화
+  const { mutate: mutateCreate } = useCreateTransaction({
     formReset: () => {
       setType("expense");
       setAmount("");
@@ -48,23 +68,31 @@ export function TransactionForm() {
       setSelectedCat("");
     },
   });
+  const { mutate: mutateUpdate } = useUpdateTransaction();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //유효성 검사
     const hasError = validate();
     if (hasError) return;
 
-    //거래 생성 뮤테이션 실행
-    mutate({
+    const payload = {
       type,
       amount: Number(amount),
       title,
       date,
       memo,
       category_id: selectedCat,
-    });
+    };
+
+    if (transactionId) {
+      mutateUpdate(
+        { id: transactionId, ...payload },
+        { onSuccess: () => router.back() },
+      );
+    } else {
+      mutateCreate(payload);
+    }
   };
 
   return (
