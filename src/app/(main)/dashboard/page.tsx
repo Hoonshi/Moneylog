@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { DashboardDesktop } from "@/app/(main)/dashboard/_components/dashboardDesktop";
+import { Dashboard } from "@/app/(main)/dashboard/_components/dashboard";
 
 export default function DashboardPage() {
   return (
@@ -18,7 +18,7 @@ export default function DashboardPage() {
         </button>
       </header>
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
-        <DashboardDesktop />
+        <Dashboard />
       </div>
     </div>
   );
