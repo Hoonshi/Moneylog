@@ -71,6 +71,14 @@ export interface MonthlySummary {
   balance: number;
 }
 
+export interface MonthlyTrendType extends Pick<
+  DailyTotal,
+  "income" | "expense"
+> {
+  year: number;
+  month: number;
+}
+
 export interface CategorySummary {
   category_id: string;
   category_name: string;

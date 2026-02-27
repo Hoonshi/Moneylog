@@ -36,8 +36,16 @@ export const budgetKeys = {
   item: (id: string) => [...budgetKeys.all, "item", id] as const,
 };
 
+//캘린더 쿼리키 = dailyTotal 쿼리키
 export const calanderKey = {
   all: ["calander"] as const,
   daily: (year: number, month: number) =>
     [...calanderKey.all, "daily", year, month] as const,
+};
+
+//보고서(report) 쿼리키 = monthlyTrend 쿼리키
+export const reportKeys = {
+  all: ["report"] as const,
+  monthlyTrend: (months: number) =>
+    [...reportKeys.all, "monthlyTrend", months] as const,
 };
