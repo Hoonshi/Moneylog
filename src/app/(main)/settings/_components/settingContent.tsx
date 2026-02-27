@@ -6,7 +6,7 @@ import { CategoryRow } from "@/types/database";
 import { User } from "lucide-react";
 import { SettingsModal } from "./modalIngredients";
 import { ProfileEditModal } from "./profileEditModal";
-import { CategoryModal } from "./categoryModal";
+import { CategoryCreateModal } from "./categoryCreateModal";
 
 export function SettingContent() {
   const { data } = useAuth();
@@ -66,24 +66,24 @@ export function SettingContent() {
               <span className="text-xs font-medium text-gray-700 flex-1">
                 {cur.name}
               </span>
-              <SettingsModal.Root>
-                <SettingsModal.Trigger>
-                  <span className="text-xs text-blue-500 cursor-pointer">
-                    수정
-                  </span>
-                </SettingsModal.Trigger>
-                <SettingsModal.Portal title="카테고리 수정">
-                  <CategoryModal />
-                </SettingsModal.Portal>
-              </SettingsModal.Root>
+
+              <span className="text-xs text-blue-500 cursor-pointer">수정</span>
+
               <span className="text-xs text-red-400 cursor-pointer">삭제</span>
             </div>
           ))}
         </div>
         <div className="mt-2">
-          <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-main text-white cursor-pointer">
-            + 카테고리 추가
-          </span>
+          <SettingsModal.Root>
+            <SettingsModal.Trigger>
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-main text-white cursor-pointer">
+                + 카테고리 추가
+              </span>
+            </SettingsModal.Trigger>
+            <SettingsModal.Portal title="카테고리 추가">
+              <CategoryCreateModal />
+            </SettingsModal.Portal>
+          </SettingsModal.Root>
         </div>
       </div>
 

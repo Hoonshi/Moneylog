@@ -10,3 +10,28 @@ export const DEFAULT_CATEGORIES = [
 ] as const;
 
 export type CategoryId = (typeof DEFAULT_CATEGORIES)[number]["id"];
+
+export const ICON_PRESETS = [
+  "🍽",
+  "🚗",
+  "🏠",
+  "🎮",
+  "📦",
+  "💊",
+  "📚",
+  "💰",
+  "🎁",
+  "🔄",
+  "✈️",
+  "🐶",
+];
+export const COLOR_PRESETS = [
+  "#F97316",
+  "#22C55E",
+  "#3B82F6",
+  "#A855F7",
+  "#EC4899",
+  "#14B8A6",
+  "#F59E0B",
+  "#6B7280",
+];
