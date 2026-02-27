@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-export default function ReportHeader() {
+export default function ReportsHeader() {
   return (
     <header className="bg-white flex items-center justify-between px-4 lg:px-6 py-3 lg:py-4 border-b border-gray-100 shrink-0">
       <div>

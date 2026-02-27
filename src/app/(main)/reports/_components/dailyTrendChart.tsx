@@ -19,7 +19,7 @@ export function DailyTrendChart() {
   const { data = [] } = useFetchDailyTotal(year, month);
 
   const chartData = data.map((item: DailyTotal) => ({
-    day: new Date(item.date).getDate(),
+    day: item.date,
     expense: item.expense,
   }));
 
@@ -38,9 +38,12 @@ export function DailyTrendChart() {
               cursor={{ fill: "#f3f4f6" }}
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
+                  const data = payload[0].payload;
+
                   return (
-                    <div className="bg-white px-2 py-1 border border-gray-100 rounded shadow-sm text-[10px]">
-                      <span className="font-medium">
+                    <div className="bg-white px-2 py-1 border border-gray-100 rounded shadow-sm text-[10px] flex flex-col">
+                      <span className="text-gray-400">{data.day}일</span>
+                      <span className="font-medium text-red-500">
                         {payload[0].value?.toLocaleString()}원
                       </span>
                     </div>

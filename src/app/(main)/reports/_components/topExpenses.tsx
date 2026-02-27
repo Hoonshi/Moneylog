@@ -3,14 +3,6 @@
 import { useTransactionList } from "@/hooks/query/useTransactionList";
 import { TransactionListParams } from "@/types/transaction";
 
-const TOP_EXPENSES = [
-  { rank: 1, name: "월세", amount: "₩450,000", cat: "주거" },
-  { rank: 2, name: "마트 장보기", amount: "₩120,000", cat: "식비" },
-  { rank: 3, name: "통신비", amount: "₩65,000", cat: "공과금" },
-  { rank: 4, name: "병원 진료", amount: "₩45,000", cat: "의료" },
-  { rank: 5, name: "쿠팡", amount: "₩32,000", cat: "쇼핑" },
-];
-
 export function TopExpenses() {
   const now = new Date();
   const year = now.getFullYear();
