@@ -91,7 +91,7 @@ export interface BudgetStatus {
 }
 
 export interface DailyTotal {
-  day: number;
+  date: number;
   income: number;
   expense: number;
 }

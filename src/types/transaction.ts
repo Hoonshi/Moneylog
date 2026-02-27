@@ -9,8 +9,8 @@ export interface Transaction extends TransactionRow {
 export interface TransactionFilter {
   type: TransactionType | "all";
   categoryId: string | null;
-  // startDate: string | null; // "YYYY-MM-DD"
-  // endDate: string | null;
+  startDate?: string | null; // "YYYY-MM-DD"
+  endDate?: string | null;
   search: string;
 }
 

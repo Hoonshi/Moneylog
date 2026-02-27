@@ -35,3 +35,9 @@ export const budgetKeys = {
     [...budgetKeys.all, year, month] as const,
   item: (id: string) => [...budgetKeys.all, "item", id] as const,
 };
+
+export const calanderKey = {
+  all: ["calander"] as const,
+  daily: (year: number, month: number) =>
+    [...calanderKey.all, "daily", year, month] as const,
+};
