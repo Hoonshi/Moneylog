@@ -2,8 +2,20 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { TransactionContent } from "./_components/transactionContent";
 import { ROUTES } from "@/constants/routes";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/get-query-client";
+import { transactionKeys } from "@/lib/queryKey";
+import transactionList from "@/apis/transaction/transactionList";
+import { DEFAULT_DASHBOARD_PARAMS } from "@/constants/transactionList";
 
-export default function TransactionsPage() {
+export default async function TransactionsPage() {
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: transactionKeys.list(DEFAULT_DASHBOARD_PARAMS),
+    queryFn: () => transactionList(DEFAULT_DASHBOARD_PARAMS),
+  });
+
   return (
     <div className="h-full flex flex-col bg-gray-50 lg:bg-white">
       <header className="bg-white flex items-center justify-between px-4 lg:px-6 py-3 lg:py-4 border-b border-gray-100 shrink-0">
@@ -23,7 +35,9 @@ export default function TransactionsPage() {
         </Link>
       </header>
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
-        <TransactionContent />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <TransactionContent />
+        </HydrationBoundary>
       </div>
     </div>
   );
