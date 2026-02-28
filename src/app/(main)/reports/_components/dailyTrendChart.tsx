@@ -65,14 +65,6 @@ export function DailyTrendChart() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-
-      <div className="flex justify-between mt-1.5 px-1">
-        <span className="text-[9px] text-gray-400 font-mono">{month}/1</span>
-        <span className="text-[9px] text-gray-400 font-mono">{month}/15</span>
-        <span className="text-[9px] text-gray-400 font-mono">
-          {month}/{new Date(year, month, 0).getDate()}
-        </span>
-      </div>
     </div>
   );
 }
