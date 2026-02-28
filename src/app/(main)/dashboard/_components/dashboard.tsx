@@ -6,6 +6,7 @@ import useCategorySummary from "@/hooks/query/useCategorySummary";
 import useMonthlySummary from "@/hooks/query/useMonthlySummary";
 import type { TransactionListParams } from "@/types/transaction";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { useDateStore } from "@/stores/dateStore";
 
 interface CategoryData {
   color: string;
@@ -18,9 +19,8 @@ interface CategoryData {
 
 export function Dashboard() {
   //임시로 이번달만 체크
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   const { data: monthlyData } = useMonthlySummary(year, month);
   const { data: categoryData } = useCategorySummary(year, month);

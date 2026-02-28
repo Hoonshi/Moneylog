@@ -2,11 +2,11 @@
 
 import { useTransactionList } from "@/hooks/query/useTransactionList";
 import { TransactionListParams } from "@/types/transaction";
+import { useDateStore } from "@/stores/dateStore";
 
 export function TopExpenses() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   // 1. 해당 월의 시작일 (2026-02-01)
   const startDay = "01";

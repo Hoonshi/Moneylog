@@ -1,11 +1,11 @@
 "use client";
 
 import useMonthlySummary from "@/hooks/query/useMonthlySummary";
+import { useDateStore } from "@/stores/dateStore";
 
 export function MonthlyComparison() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   const prevMonth = month === 1 ? 12 : month - 1;
   const prevYear = month === 1 ? year - 1 : year;

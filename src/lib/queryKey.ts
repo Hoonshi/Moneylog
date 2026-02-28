@@ -17,15 +17,15 @@ export const transactionKeys = {
 export const categoryKeys = {
   all: ["categories"] as const,
   list: (type?: string) => [...categoryKeys.all, type] as const,
+  categorySummary: (year: number, month: number) =>
+    [...dashboardKeys.all, "categorySummary", year, month] as const,
 };
 
 //대시보드 쿼리키
 export const dashboardKeys = {
   all: ["dashboard"] as const,
-  monthlySummart: (year: number, month: number) =>
+  monthlySummary: (year: number, month: number) =>
     [...dashboardKeys.all, "monthlySummary", year, month] as const,
-  categorySummary: (year: number, month: number) =>
-    [...dashboardKeys.all, "categorySummary", year, month] as const,
 };
 
 //예산(budget) 쿼리키

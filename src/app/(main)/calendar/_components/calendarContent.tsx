@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { Utensils, Car, Wallet } from "lucide-react";
-import { DayPicker } from "react-day-picker";
+import { useState, useEffect } from "react";
+import { useDateStore } from "@/stores/dateStore";
 import useFetchDailyTotal from "@/hooks/query/useFetchDailyTotal";
-import { DailyTotal } from "@/types/database";
 import { useTransactionList } from "@/hooks/query/useTransactionList";
 import useMonthlySummary from "@/hooks/query/useMonthlySummary";
+import { Utensils, Car, Wallet } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+import { DailyTotal } from "@/types/database";
 import { ko } from "date-fns/locale";
 
 const CAT_ICONS: Record<string, React.ElementType> = {
@@ -19,11 +20,19 @@ export function CalendarContent() {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date());
 
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
+  const currentMonthView = new Date(year, month - 1);
+
+  //월 바꿀때 day 1로 초기화하기용
+  useEffect(() => {
+    setTimeout(() => {
+      setSelectedDay(new Date(year, month - 1, 1));
+    }, 0);
+  }, [year, month]);
+
   // 캘린더용
   const { data: dailyTotal = [] } = useFetchDailyTotal(year, month);
-  console.log("dailyTotal", dailyTotal);
   // 거래 내역용
   const formattedDate = selectedDay
     ? `${year}-${month.toString().padStart(2, "0")}-${selectedDay.getDate().toString().padStart(2, "0")}`
@@ -65,6 +74,7 @@ export function CalendarContent() {
         locale={ko}
         selected={selectedDay}
         onSelect={setSelectedDay}
+        month={currentMonthView}
         classNames={{
           months: "w-full",
           // table 태그
@@ -183,7 +193,7 @@ export function CalendarContent() {
         {/* Monthly summary */}
         <div className="border border-gray-200 rounded-lg p-4">
           <p className="text-xs font-mono text-gray-400 uppercase tracking-wider mb-3">
-            2월 요약
+            {month}월 요약
           </p>
           <div className="space-y-3">
             <div>

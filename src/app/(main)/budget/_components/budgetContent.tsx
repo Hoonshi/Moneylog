@@ -1,13 +1,13 @@
 ﻿"use client";
 
 import useBudget from "@/hooks/query/useBudget";
+import { useDateStore } from "@/stores/dateStore";
 import { BudgetStatus } from "@/types/database";
 import { AlertTriangle } from "lucide-react";
 
 export function BudgetContent() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   const { data: budget } = useBudget(year, month);
 

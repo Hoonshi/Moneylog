@@ -39,9 +39,11 @@ export function TransactionListView() {
   const end = Math.min(start + pageGroupSize - 1, data?.totalPages ?? 0);
   const pages = Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
-  // useEffect(() => {
-  //   setPage(1);
-  // }, [filter, sort]);
+  useEffect(() => {
+    setTimeout(() => {
+      setPage(1);
+    }, 0);
+  }, [filter, sort]);
 
   return (
     <div className="space-y-3">

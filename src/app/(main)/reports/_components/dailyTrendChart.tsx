@@ -1,6 +1,7 @@
 "use client";
 
 import useFetchDailyTotal from "@/hooks/query/useFetchDailyTotal";
+import { useDateStore } from "@/stores/dateStore";
 import { DailyTotal } from "@/types/database";
 import {
   BarChart,
@@ -12,9 +13,8 @@ import {
 } from "recharts";
 
 export function DailyTrendChart() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   const { data = [] } = useFetchDailyTotal(year, month);
 

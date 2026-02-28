@@ -1,11 +1,11 @@
 "use client";
 
 import useMonthlySummary from "@/hooks/query/useMonthlySummary";
+import { useDateStore } from "@/stores/dateStore";
 
 export default function ReportSummary() {
-  const now = new Date();
-  const month = now.getMonth() + 1;
-  const year = now.getFullYear();
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   const { data } = useMonthlySummary(year, month);
 
