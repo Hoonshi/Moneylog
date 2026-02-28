@@ -74,7 +74,7 @@ export function Dashboard() {
         ))}
       </div>
       {/* 차트*/}
-      <div className="grid grid-cols-5 gap-3">
+      <div className="grid lg:grid-cols-5 gap-3 grid-cols-1">
         <div className="col-span-3 border border-gray-200 rounded-lg p-3">
           <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
             월별 지출 추이
@@ -92,6 +92,7 @@ export function Dashboard() {
                 label={({ percent, name }) =>
                   `${name} ${((percent || 0) * 100).toFixed(0)}%`
                 }
+                fontSize={12}
               >
                 {categoryData?.map((item: CategoryData) => (
                   <Cell stroke="none" key={item.id} fill={item.color} />
