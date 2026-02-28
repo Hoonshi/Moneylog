@@ -1,4 +1,6 @@
-import { SettingContent } from "./_components/settingContent";
+import { AccountSection } from "./_components/accountSection";
+import { CategorySection } from "./_components/categorySection";
+import { ProfileSection } from "./_components/profileSection";
 
 export default function SettingsPage() {
   return (
@@ -14,7 +16,11 @@ export default function SettingsPage() {
         </div>
       </header>
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
-        <SettingContent />
+        <div className="max-w-lg space-y-5">
+          <ProfileSection />
+          <CategorySection />
+          <AccountSection />
+        </div>{" "}
       </div>
     </div>
   );
