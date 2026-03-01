@@ -8,6 +8,8 @@ import transactionList from "@/apis/transaction/transactionList";
 import monthlySummary from "@/apis/dashboard/monthlySummary";
 import { fetchDailyTotal } from "@/apis/calander/fetchDailyTotal";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 //프리페칭을 위한 값
 const now = new Date();
@@ -31,22 +33,22 @@ export default async function CalendarPage() {
   const queryClient = getQueryClient();
 
   await Promise.all([
-    {
+    queryClient.prefetchQuery({
       queryKey: transactionKeys.list(DEFAULT_DASHBOARD_PARAMS),
       queryFn: () => transactionList(DEFAULT_DASHBOARD_PARAMS),
-    },
-    {
+    }),
+    queryClient.prefetchQuery({
       queryKey: transactionKeys.list(totalTransaction),
       queryFn: () => transactionList(totalTransaction),
-    },
-    {
-      queryKey: [{ ...dashboardKeys.monthlySummary(year, month) }],
+    }),
+    queryClient.prefetchQuery({
+      queryKey: dashboardKeys.monthlySummary(year, month),
       queryFn: () => monthlySummary(year, month),
-    },
-    {
-      queryKey: [{ ...calanderKey.daily(year, month) }],
+    }),
+    queryClient.prefetchQuery({
+      queryKey: calanderKey.daily(year, month),
       queryFn: () => fetchDailyTotal(year, month),
-    },
+    }),
   ]);
 
   return (
@@ -64,7 +66,9 @@ export default async function CalendarPage() {
       </header>
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <CalendarContent />
+          <Suspense fallback={<LoadingSpinner />}>
+            <CalendarContent />
+          </Suspense>
         </HydrationBoundary>
       </div>
     </div>

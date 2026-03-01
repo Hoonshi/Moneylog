@@ -4,6 +4,8 @@ import { BudgetList } from "./_components/budgetList";
 import { getQueryClient } from "@/lib/get-query-client";
 import { fetchBudget } from "@/apis/budget/fetchBudget";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default async function BudgetPage() {
   const queryClient = getQueryClient();
@@ -22,8 +24,10 @@ export default async function BudgetPage() {
       <BudegetHeader />
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <BudgetSummary />
-          <BudgetList />
+          <Suspense fallback={<LoadingSpinner />}>
+            <BudgetSummary />
+            <BudgetList />
+          </Suspense>
         </HydrationBoundary>
       </div>
     </div>

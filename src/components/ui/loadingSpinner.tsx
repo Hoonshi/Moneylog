@@ -1,0 +1,12 @@
+export default function LoadingSpinner() {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin shadow-lg"></div>
+        <p className="text-indigo-600 font-semibold text-lg animate-pulse">
+          로딩중 입니다!{" "}
+        </p>
+      </div>
+    </div>
+  );
+}

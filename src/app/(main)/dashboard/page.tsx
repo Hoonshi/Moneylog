@@ -12,6 +12,8 @@ import categorySummary from "@/apis/dashboard/categorySummary";
 import { transactionKeys } from "@/lib/queryKey";
 import transactionList from "@/apis/transaction/transactionList";
 import { DEFAULT_DASHBOARD_PARAMS } from "@/constants/transactionList";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default async function DashboardPage() {
   const queryClient = getQueryClient();
@@ -22,11 +24,11 @@ export default async function DashboardPage() {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: [{ ...dashboardKeys.monthlySummary(year, month) }],
+      queryKey: dashboardKeys.monthlySummary(year, month),
       queryFn: () => monthlySummary(year, month),
     }),
     queryClient.prefetchQuery({
-      queryKey: [{ ...categoryKeys.categorySummary(year, month) }],
+      queryKey: categoryKeys.categorySummary(year, month),
       queryFn: () => categorySummary(year, month),
     }),
     queryClient.prefetchQuery({
@@ -43,12 +45,14 @@ export default async function DashboardPage() {
       <div className="flex-1 overflow-auto p-4 lg:p-5 pb-24 lg:pb-5">
         <div className="space-y-4">
           <HydrationBoundary state={dehydrate(queryClient)}>
-            {/* 요약 카드 */}
-            <DashboardSummary />
-            {/* 차트 및 카테고리*/}
-            <DashboardChart />
-            {/*최근거래내역*/}
-            <DashboardTransactionList />
+            <Suspense fallback={<LoadingSpinner />}>
+              {/* 요약 카드 */}
+              <DashboardSummary />
+              {/* 차트 및 카테고리*/}
+              <DashboardChart />
+              {/*최근거래내역*/}
+              <DashboardTransactionList />
+            </Suspense>
           </HydrationBoundary>
         </div>{" "}
       </div>
