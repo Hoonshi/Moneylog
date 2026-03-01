@@ -51,17 +51,17 @@ export function TopExpenses() {
               key={item.id}
               className="flex items-center gap-3 py-2 border-b border-gray-50 last:border-0"
             >
-              <span className="text-xs font-bold text-gray-300 w-4">
+              <span className="text-md font-bold text-gray-300 w-4">
                 {idx + 1}
               </span>
               <div className="flex-1">
-                <p className="text-xs font-medium text-gray-700">{item.memo}</p>
+                <p className="text-sm font-medium text-gray-700">{item.memo}</p>
                 <p className="text-[10px] text-gray-400">
                   {item.category.name}
                 </p>
               </div>
-              <span className="text-xs font-semibold text-red-500">
-                {item.amount}
+              <span className="text-md font-semibold text-[#ff8787]">
+                {item.amount.toLocaleString()}원
               </span>
             </div>
           ))}

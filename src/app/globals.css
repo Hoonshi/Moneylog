@@ -3,6 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --blue-50: #e7f5ff;
+  --orange-50: #fff4e6;
+  --green-50: #ebfbee;
+  --grape-50: #f8f0fc;
+  --indigo-50: #edf2ff;
+  --yellow-50: #fff9db;
+  --pink-50: #fff0f6;
+  --violet-50: #f3f0ff;
+  --lime-50: #f4fce3;
 }
 
 body {
@@ -13,7 +22,7 @@ body {
 
 @layer utilities {
   .bg-main {
-    background: linear-gradient(135deg, #4d9fff 0%, #3182f6 50%, #1b6cf2 100%);
+    background: #748ffc;
   }
 }
 

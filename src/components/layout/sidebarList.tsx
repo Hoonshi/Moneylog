@@ -18,7 +18,7 @@ export function SidebarList({
       href={href}
       className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-xs transition-colors ${
         active
-          ? "bg-blue-50 text-blue-600 font-semibold [&>svg]:stroke-[2.5]"
+          ? "bg-gray-100 text-gray-500 font-semibold [&>svg]:stroke-[2.5]"
           : "text-gray-500 hover:bg-gray-100 [&>svg]:stroke-[1.8]"
       }`}
     >

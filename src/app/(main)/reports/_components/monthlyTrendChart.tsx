@@ -56,14 +56,15 @@ export default function MonthlyTrendChart() {
             <Bar
               name="수입"
               dataKey="income"
-              fill="#3b82f6"
+              fill="#91a7ff
+"
               radius={[4, 4, 0, 0]}
               maxBarSize={30}
             />
             <Bar
               name="지출"
               dataKey="expense"
-              fill="#f87171"
+              fill="#ffa8a8"
               radius={[4, 4, 0, 0]}
               maxBarSize={30}
             />

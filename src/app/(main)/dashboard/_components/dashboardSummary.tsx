@@ -14,25 +14,25 @@ export default function DashboardSummary() {
         {
           label: "이번 달 수입",
           amount: monthlyData?.income || 0,
-          color: "text-blue-600",
-          bg: "bg-blue-50",
+          color: "text-gray-800",
+          bg: "bg-[#e7f5ff]",
         },
         {
           label: "이번 달 지출",
           amount: monthlyData?.expense || 0,
-          color: "text-red-500",
-          bg: "bg-red-50",
+          color: "text-gray-800",
+          bg: "bg-[#fff4e6]",
         },
         {
           label: "잔액",
           amount: monthlyData?.balance || 0,
-          color: "text-green-600",
-          bg: "bg-green-50",
+          color: "text-gray-800",
+          bg: "bg-[#ebfbee]",
         },
       ].map((c) => (
         <div key={c.label} className={`${c.bg} rounded-lg p-3.5`}>
-          <p className="text-xs text-gray-500">{c.label}</p>
-          <p className={`text-lg font-bold mt-1 ${c.color}`}>
+          <p className="text-[12px] pb-2 text-gray-500">{c.label}</p>
+          <p className={`text-md font-semibold mt-1 ${c.color}`}>
             {c.amount.toLocaleString()}원
           </p>
         </div>

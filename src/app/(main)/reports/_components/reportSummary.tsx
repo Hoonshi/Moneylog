@@ -20,25 +20,25 @@ export default function ReportSummary() {
         {
           label: "총 수입",
           amount: `${data?.income.toLocaleString()} 원`,
-          color: "text-blue-600",
-          bg: "bg-blue-50",
+          color: "text-gray-800",
+          bg: "bg-[#e7f5ff]",
         },
         {
           label: "총 지출",
           amount: `${data?.expense.toLocaleString()} 원`,
-          color: "text-red-500",
-          bg: "bg-red-50",
+          color: "text-gray-800",
+          bg: "bg-[#fff4e6]",
         },
         {
           label: "저축률",
           amount: savaRating,
-          color: "text-green-600",
-          bg: "bg-green-50",
+          color: "text-gray-800",
+          bg: "bg-[#ebfbee]",
         },
       ].map((c) => (
         <div key={c.label} className={`${c.bg} rounded-lg p-3.5`}>
           <p className="text-xs text-gray-500">{c.label}</p>
-          <p className={`text-lg font-bold mt-1 ${c.color}`}>{c.amount}</p>
+          <p className={`text-md font-semibold mt-1 ${c.color}`}>{c.amount}</p>
         </div>
       ))}
     </div>

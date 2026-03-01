@@ -23,13 +23,16 @@ export function CalendarContent() {
 
   return (
     <div className="space-y-4">
+      {/* 캘린더 */}
       <Suspense fallback={<CalendarSectionSkeleton />}>
         <CalendarSection selectedDay={selectedDay} onSelect={setSelectedDay} />
       </Suspense>
       <div className="grid grid-cols-3 gap-4">
+        {/* 일별 지출 */}
         <Suspense fallback={<DayDetailSectionSkeleton />}>
           <DayDetailSection selectedDay={selectedDay} />
         </Suspense>
+        {/* 월간 요약 */}
         <Suspense fallback={<MonthlySummarySectionSkeleton />}>
           <MonthlySummarySection />
         </Suspense>

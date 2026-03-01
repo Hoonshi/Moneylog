@@ -23,21 +23,21 @@ export function BudgetSummary() {
   return (
     <div className="bg-gray-50 rounded-xl p-4 flex items-center justify-between">
       <div>
-        <p className="text-xs text-gray-500">이번 달 총 예산</p>
-        <p className="text-lg font-bold text-gray-800">
-          ₩{totalBudget.toLocaleString()}원
+        <p className="text-md text-gray-500 pb-2">이번 달 총 예산</p>
+        <p className="text-md font-bold text-gray-800">
+          ₩ {totalBudget.toLocaleString()}원
         </p>
       </div>
       <div className="text-right">
-        <p className="text-xs text-gray-500">사용 금액</p>
-        <p className="text-lg font-bold text-red-500">
-          ₩{totalSpent.toLocaleString()}원
+        <p className="text-md pb-2 text-gray-500">사용 금액</p>
+        <p className="text-md font-bold text-gray-800">
+          ₩ {totalSpent.toLocaleString()}원
         </p>
       </div>
       <div className="text-right">
-        <p className="text-xs text-gray-500">남은 금액</p>
-        <p className="text-lg font-bold text-green-600">
-          ₩{totalRemaining.toLocaleString()}원
+        <p className="text-md pb-2 text-gray-500">남은 금액</p>
+        <p className="text-md font-bold text-gray-800">
+          {totalRemaining.toLocaleString()}원
         </p>
       </div>
       <div className="w-32">

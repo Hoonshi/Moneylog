@@ -35,7 +35,7 @@ export default function DashboardTransactionList() {
               <p className="text-xs text-gray-400">{tx.category.name}</p>
             </div>
             <span
-              className={`text-xs font-semibold ${tx.type === "expense" ? "text-red-500" : "text-blue-600"}`}
+              className={`text-xs font-semibold ${tx.type === "expense" ? "text-[#ff8787]" : "text-[#748ffc]"}`}
             >
               {tx.type === "expense" ? "-" : "+"} {tx.amount.toLocaleString()}원
             </span>

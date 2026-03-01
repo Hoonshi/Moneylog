@@ -55,7 +55,7 @@ export function DailyTrendChart() {
 
             <Bar
               dataKey="expense"
-              fill="#f87171"
+              fill="#ffa8a8"
               radius={[2, 2, 0, 0]}
               maxBarSize={16}
             />

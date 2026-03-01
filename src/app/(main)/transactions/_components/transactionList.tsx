@@ -26,7 +26,7 @@ export function TransactionList({ data }: Props) {
             </div>
             <span
               className={`text-xs font-semibold shrink-0 ${
-                tx.type === "expense" ? "text-red-500" : "text-blue-600"
+                tx.type === "expense" ? "text-[#ff8787]" : "text-[#748ffc]"
               }`}
             >
               {tx.type === "expense" ? "-" : "+"}
@@ -58,7 +58,7 @@ export function TransactionList({ data }: Props) {
             <span className="col-span-2 text-gray-400 truncate">{tx.memo}</span>
             <span
               className={`col-span-2 text-right font-semibold ${
-                tx.type === "expense" ? "text-red-500" : "text-blue-600"
+                tx.type === "expense" ? "text-[#ff8787]" : "text-[#748ffc]"
               }`}
             >
               {tx.type === "expense" ? "-" : "+"} {tx.amount.toLocaleString()}원

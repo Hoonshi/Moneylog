@@ -14,15 +14,13 @@ export function TransactionDetail({ id }: TransactionDetailProps) {
     <div className="space-y-4 pt-2">
       {/* Amount Card */}
       <div
-        className={`${isExpense ? "bg-red-50" : "bg-blue-50"} rounded-2xl p-5 text-center`}
+        className={`${isExpense ? "bg-[#fff4e6]" : "bg-blue-50"} rounded-2xl p-5 text-center`}
       >
         <p className="text-[11px] text-gray-500">
           {isExpense ? "지출" : "수입"}
         </p>
-        <p
-          className={`text-2xl font-bold mt-1 ${isExpense ? "text-red-500" : "text-blue-600"}`}
-        >
-          {isExpense ? "-" : "+"}₩{Math.abs(data?.amount ?? 0).toLocaleString()}
+        <p className={`text-2xl font-bold mt-1 text-gray-800`}>
+          {Math.abs(data?.amount ?? 0).toLocaleString()}원
         </p>
         <p className="text-sm text-gray-600 mt-1">{data?.title}</p>
       </div>

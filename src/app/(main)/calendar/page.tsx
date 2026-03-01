@@ -19,6 +19,8 @@ export default async function CalendarPage() {
   const mm = month.toString().padStart(2, "0");
   const dd = day.toString().padStart(2, "0");
   const today = `${year}-${mm}-${dd}`;
+  const lastDay = new Date(year, month, 0).getDate();
+  const endDateStr = `${year}-${String(month).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
 
   const totalTransaction: TransactionListParams = {
     filter: {
@@ -26,7 +28,7 @@ export default async function CalendarPage() {
       categoryId: null,
       search: "",
       startDate: `${year}-${mm}-01`,
-      endDate: `${year}-${mm}-31`,
+      endDate: endDateStr,
     },
     sort: { key: "date", direction: "desc" },
     page: 1,

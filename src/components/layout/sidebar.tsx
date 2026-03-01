@@ -26,11 +26,14 @@ export function Sidebar() {
     <aside className="hidden lg:flex flex-col w-52 shrink-0 bg-white border-r border-gray-200 h-full">
       {/* Logo */}
       <div className="p-4 h-17 border-b border-gray-100">
-        <Link href={ROUTES.HOME} className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-main rounded-lg flex items-center justify-center text-white text-xs font-bold">
+        <Link
+          href={ROUTES.HOME}
+          className="flex items-center justify-center gap-2"
+        >
+          {/* <div className="w-7 h-7 bg-main rounded-lg flex items-center justify-center text-white text-xs font-bold">
             ₩
-          </div>
-          <span className="font-bold text-sm text-gray-800">MoneyLog</span>
+          </div> */}
+          <div className="font-bold text-lg text-gray-800">MONEYLOG.CO</div>
         </Link>
       </div>
 
