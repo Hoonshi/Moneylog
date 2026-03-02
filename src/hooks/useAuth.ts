@@ -40,22 +40,22 @@ export function useSignUp() {
     mutationFn: async ({
       email,
       password,
+      name,
     }: {
       email: string;
       password: string;
+      name: string;
     }) => {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: { data: { full_name: name } },
       });
       if (error) throw error;
       return data;
     },
     onSuccess: () => {
-      // 이메일 인증이 필요한 경우 안내 페이지로
-      // 인증 없이 바로 로그인되게 하려면 Supabase 대시보드에서
-      // Authentication → Settings → "Confirm email" 끄면 됨
-      router.push("/");
+      router.push("/dashboard");
       router.refresh();
     },
   });
