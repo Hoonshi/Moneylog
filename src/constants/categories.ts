@@ -26,12 +26,12 @@ export const ICON_PRESETS = [
   "🐶",
 ];
 export const COLOR_PRESETS = [
-  "#F97316",
-  "#22C55E",
-  "#3B82F6",
-  "#A855F7",
-  "#EC4899",
-  "#14B8A6",
-  "#F59E0B",
-  "#6B7280",
+  "#d0ebff",
+  "#ffdeeb",
+  "#e9fac8",
+  "#dbe4ff",
+  "#f3d9fa",
+  "#fff3bf",
+  "#d3f9d8",
+  "#ffe8cc",
 ];

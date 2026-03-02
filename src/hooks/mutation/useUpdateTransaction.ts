@@ -9,6 +9,7 @@ import {
 import { TransactionUpdate } from "@/types/database";
 import updateTransaction from "@/apis/transaction/updateTransaction";
 import { useDateStore } from "@/stores/dateStore";
+import toast from "react-hot-toast";
 
 export function useUpdateTransaction() {
   const queryClient = useQueryClient();
@@ -25,6 +26,9 @@ export function useUpdateTransaction() {
       queryClient.invalidateQueries({ queryKey: budgetKeys.list(year, month) });
       queryClient.invalidateQueries({ queryKey: reportKeys.all });
       queryClient.invalidateQueries({ queryKey: categoryKeys.categorySummary(year, month) });
+    },
+    onError: () => {
+      toast.error("거래 수정에 실패하였습니다");
     },
   });
 }

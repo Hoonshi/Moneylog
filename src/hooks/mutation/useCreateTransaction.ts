@@ -9,6 +9,7 @@ import {
 import type { TransactionInsert } from "@/types/database";
 import createTransaction from "@/apis/transaction/createTransaction";
 import { useDateStore } from "@/stores/dateStore";
+import toast from "react-hot-toast";
 
 export function useCreateTransaction({
   formReset,
@@ -30,6 +31,9 @@ export function useCreateTransaction({
       queryClient.invalidateQueries({ queryKey: reportKeys.all });
       queryClient.invalidateQueries({ queryKey: categoryKeys.categorySummary(year, month) });
       formReset?.();
+    },
+    onError: () => {
+      toast.error("거래 생성에 실패하였습니다");
     },
   });
 }

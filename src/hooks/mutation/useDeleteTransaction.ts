@@ -8,6 +8,7 @@ import {
 } from "@/lib/queryKey";
 import deleteTransaction from "@/apis/transaction/deleteTransaction";
 import { useDateStore } from "@/stores/dateStore";
+import toast from "react-hot-toast";
 
 export function useDeleteTransaction() {
   const queryClient = useQueryClient();
@@ -22,6 +23,9 @@ export function useDeleteTransaction() {
       queryClient.invalidateQueries({ queryKey: budgetKeys.list(year, month) });
       queryClient.invalidateQueries({ queryKey: reportKeys.all });
       queryClient.invalidateQueries({ queryKey: categoryKeys.categorySummary(year, month) });
+    },
+    onError: () => {
+      toast.error("거래 삭제에 실패하였습니다");
     },
   });
 }
