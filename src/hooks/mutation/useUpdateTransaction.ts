@@ -1,21 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { transactionKeys, dashboardKeys } from "@/lib/queryKey";
+import {
+  transactionKeys,
+  dashboardKeys,
+  budgetKeys,
+  categoryKeys,
+  reportKeys,
+} from "@/lib/queryKey";
 import { TransactionUpdate } from "@/types/database";
 import updateTransaction from "@/apis/transaction/updateTransaction";
+import { useDateStore } from "@/stores/dateStore";
 
 export function useUpdateTransaction() {
   const queryClient = useQueryClient();
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
 
   return useMutation({
     mutationFn: ({ id, ...updates }: TransactionUpdate & { id: string }) =>
       updateTransaction({ id, ...updates }),
 
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: transactionKeys.lists() });
-      queryClient.invalidateQueries({
-        queryKey: transactionKeys.detail(data.id),
-      });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: transactionKeys.all });
       queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
+      queryClient.invalidateQueries({ queryKey: budgetKeys.list(year, month) });
+      queryClient.invalidateQueries({ queryKey: reportKeys.all });
+      queryClient.invalidateQueries({ queryKey: categoryKeys.categorySummary(year, month) });
     },
   });
 }

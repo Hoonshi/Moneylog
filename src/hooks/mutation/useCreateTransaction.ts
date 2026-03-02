@@ -3,17 +3,20 @@ import {
   transactionKeys,
   dashboardKeys,
   budgetKeys,
-  calendarKeys,
+  categoryKeys,
   reportKeys,
 } from "@/lib/queryKey";
 import type { TransactionInsert } from "@/types/database";
 import createTransaction from "@/apis/transaction/createTransaction";
+import { useDateStore } from "@/stores/dateStore";
 
 export function useCreateTransaction({
   formReset,
 }: {
   formReset?: () => void;
 }) {
+  const year = useDateStore((state) => state.year);
+  const month = useDateStore((state) => state.month);
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -23,10 +26,9 @@ export function useCreateTransaction({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: transactionKeys.lists() });
       queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
-      queryClient.invalidateQueries({ queryKey: budgetKeys.all });
-      queryClient.invalidateQueries({ queryKey: calendarKeys.all });
+      queryClient.invalidateQueries({ queryKey: budgetKeys.list(year, month) });
       queryClient.invalidateQueries({ queryKey: reportKeys.all });
-
+      queryClient.invalidateQueries({ queryKey: categoryKeys.categorySummary(year, month) });
       formReset?.();
     },
   });
