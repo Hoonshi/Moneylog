@@ -19,6 +19,29 @@ export default function DashboardChart() {
   const month = useDateStore((state) => state.month);
   const { data: categoryData } = useCategorySummary(year, month);
 
+  //분석 필요함
+  const renderLabel = (props: any) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, percent, index } =
+      props;
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const name = categoryData?.[index]?.name ?? "";
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#1f2937"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+        fontSize={12}
+      >
+        {`${name} ${((percent || 0) * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   return (
     <div className="grid lg:grid-cols-5 gap-3 grid-cols-1">
       <div className="col-span-3 border border-gray-200 rounded-lg p-3">
@@ -34,9 +57,7 @@ export default function DashboardChart() {
               innerRadius={50}
               outerRadius={80}
               labelLine={false}
-              label={({ percent, name }) =>
-                `${name} ${((percent || 0) * 100).toFixed(0)}%`
-              }
+              label={renderLabel}
               fontSize={12}
             >
               {categoryData.map((item: CategoryData) => (
