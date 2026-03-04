@@ -33,6 +33,7 @@ export default function LoginPage() {
             <input
               className="text-xs text-gray-600 w-full bg-transparent focus:outline-none"
               placeholder="이메일"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

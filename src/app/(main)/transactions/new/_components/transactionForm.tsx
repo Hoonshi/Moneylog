@@ -35,7 +35,7 @@ export function TransactionForm({
   //db에 저장한 카테고리 불러오기
   const { data: categories } = useCategories(type);
   const [selectedCat, setSelectedCat] = useState<string>(
-    initialValues?.category_id ?? "",
+    String(initialValues?.category_id ?? ""),
   );
   const [errors, setErrors] = useState({
     title: "",

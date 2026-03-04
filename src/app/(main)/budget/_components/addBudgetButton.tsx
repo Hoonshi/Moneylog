@@ -2,7 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { BudgetForm } from "./budget-form";
+import { BudgetForm } from "./budgetForm";
 
 export default function AddBudgetButton() {
   const [isOpen, setIsOpen] = useState(false);

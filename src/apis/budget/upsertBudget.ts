@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/client";
-import { BudegetUpsertParams } from "@/types/budeget";
+import { BudgetUpsertParams } from "@/types/budget";
 
 // 있으면 수정, 없으면 추가 -> upsert
-export async function upsertBudget(params: BudegetUpsertParams) {
+export async function upsertBudget(params: BudgetUpsertParams) {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("budgets")

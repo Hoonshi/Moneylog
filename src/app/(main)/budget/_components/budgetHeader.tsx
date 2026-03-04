@@ -3,7 +3,7 @@
 import { useDateStore } from "@/stores/dateStore";
 import AddBudgetButton from "./addBudgetButton";
 
-export default function BudegetHeader() {
+export default function BudgetHeader() {
   const year = useDateStore((state) => state.year);
   const month = useDateStore((state) => state.month);
 

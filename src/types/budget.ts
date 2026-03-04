@@ -15,7 +15,7 @@ export interface BudgetOverview {
   overallPercentage: number;
 }
 
-export interface BudegetUpsertParams {
+export interface BudgetUpsertParams {
   category_id: string;
   year: number;
   month: number;
