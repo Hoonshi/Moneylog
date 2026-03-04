@@ -1,104 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { useCreateTransaction } from "@/hooks/mutation/useCreateTransaction";
 import { useUpdateTransaction } from "@/hooks/mutation/useUpdateTransaction";
 import { useCategories } from "@/hooks/query/useCategories";
-
-interface TransactionFormProps {
-  initialValues?: {
-    type: "expense" | "income";
-    amount: number;
-    title: string;
-    date: string;
-    memo?: string;
-    category_id: string;
-  };
-  transactionId?: string;
-}
+import {
+  TransactionFormValues,
+  transactionSchema,
+} from "@/schema/transactionSchema";
+import { TransactionFormProps } from "@/types/transaction";
 
 export function TransactionForm({
   initialValues,
   transactionId,
 }: TransactionFormProps = {}) {
   const router = useRouter();
-  const [type, setType] = useState<"expense" | "income">(
-    initialValues?.type ?? "expense",
-  );
-  const [amount, setAmount] = useState(initialValues?.amount ?? "");
-  const [title, setTitle] = useState(initialValues?.title ?? "");
-  const [date, setDate] = useState(initialValues?.date ?? "");
-  const [memo, setMemo] = useState(initialValues?.memo ?? "");
 
-  //db에 저장한 카테고리 불러오기
-  const { data: categories } = useCategories(type);
-  const [selectedCat, setSelectedCat] = useState<string>(
-    String(initialValues?.category_id ?? ""),
-  );
-  const [errors, setErrors] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<TransactionFormValues>({
+    resolver: zodResolver(transactionSchema),
+    defaultValues: {
+      type: initialValues?.type ?? "expense",
+      amount: initialValues?.amount,
+      title: initialValues?.title ?? "",
+      date: initialValues?.date ?? "",
+      memo: initialValues?.memo ?? "",
+      category_id: initialValues?.category_id ?? "",
+    },
   });
 
-  //에러 검증 함수
-  const validate = () => {
-    const newErrors = {
-      title: title ? "" : "내용을 입력해주세요.",
-      amount: amount ? "" : "금액을 입력해주세요.",
-      date: date ? "" : "날짜를 입력해주세요.",
-      category: selectedCat ? "" : "카테고리를 선택해주세요.",
-    };
+  const type = watch("type");
+  const selectedCat = watch("category_id");
 
-    setErrors(newErrors);
-
-    return Object.values(newErrors).some((value) => value !== "");
-  };
+  const { data: categories } = useCategories(type);
 
   const { mutate: mutateCreate } = useCreateTransaction({
-    formReset: () => {
-      setType("expense");
-      setAmount("");
-      setTitle("");
-      setDate("");
-      setMemo("");
-      setSelectedCat("");
-    },
+    formReset: () => reset(),
   });
   const { mutate: mutateUpdate } = useUpdateTransaction();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const hasError = validate();
-    if (hasError) return;
-
-    const payload = {
-      type,
-      amount: Number(amount),
-      title,
-      date,
-      memo,
-      category_id: selectedCat,
-    };
-
+  const onSubmit = (data: TransactionFormValues) => {
     if (transactionId) {
       mutateUpdate(
-        { id: transactionId, ...payload },
+        { id: transactionId, ...data },
         { onSuccess: () => router.back() },
       );
     } else {
-      mutateCreate(payload);
+      mutateCreate(data);
     }
   };
 
   return (
     <form
       id="transaction-form"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className="space-y-5 pt-2"
     >
       {/* Type Toggle */}
@@ -106,8 +70,8 @@ export function TransactionForm({
         <button
           type="button"
           onClick={() => {
-            setType("expense");
-            setSelectedCat("");
+            setValue("type", "expense");
+            setValue("category_id", "");
           }}
           className={`cursor-pointer flex-1 py-2.5 text-center text-xs font-bold rounded-lg transition-colors ${
             type === "expense"
@@ -120,8 +84,8 @@ export function TransactionForm({
         <button
           type="button"
           onClick={() => {
-            setType("income");
-            setSelectedCat("");
+            setValue("type", "income");
+            setValue("category_id", "");
           }}
           className={`cursor-pointer flex-1 py-2.5 text-center text-xs font-medium rounded-lg transition-colors ${
             type === "income"
@@ -140,35 +104,31 @@ export function TransactionForm({
           <span className="text-2xl text-gray-300 font-light">₩</span>
           <input
             type="number"
-            name="amount"
             className="text-3xl font-bold text-gray-800 w-46 text-center outline-none"
             placeholder="0"
-            //제어 컴포넌트
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            {...register("amount", { valueAsNumber: true })}
           />
         </div>
         {errors.amount && (
-          <p className="text-[10px] text-red-500 mt-1 ml-16">{errors.amount}</p>
+          <p className="text-[10px] text-red-500 mt-3 ml-3">
+            {errors.amount.message}
+          </p>
         )}
       </div>
 
-      <div className="bg-white rounded-xl divide-y divide-gray-50">
+      <div className="bg-white rounded-xl divide-y divide-gray-200">
         {/* 내용 */}
         <div className="flex items-center px-4 py-3.5">
           <span className="text-xs text-gray-500 w-16">내용</span>
           <input
             type="text"
-            name="title"
             placeholder="예: 스타벅스, 월급..."
             className="text-xs text-gray-700 flex-1 outline-none placeholder:text-gray-300"
-            //제어 컴포넌트
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            {...register("title")}
           />
           {errors.title && (
             <p className="text-[10px] text-red-500 mt-1 ml-16">
-              {errors.title}
+              {errors.title.message}
             </p>
           )}
         </div>
@@ -177,15 +137,14 @@ export function TransactionForm({
           <span className="text-xs text-gray-500 w-16">날짜</span>
           <input
             type="date"
-            name="date"
             className="text-xs text-gray-700 flex-1 outline-none"
-            //제어 컴포넌트
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            {...register("date")}
           />
           <ChevronDown size={13} className="text-gray-400" />
           {errors.date && (
-            <p className="text-[10px] text-red-500 mt-1 ml-16">{errors.date}</p>
+            <p className="text-[10px] text-red-500 mt-1 ml-16">
+              {errors.date.message}
+            </p>
           )}
         </div>
         {/* 카테고리 */}
@@ -196,7 +155,7 @@ export function TransactionForm({
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setSelectedCat(cat.id)}
+                onClick={() => setValue("category_id", cat.id)}
                 className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] border ${
                   selectedCat === cat.id
                     ? "border-blue-400 bg-blue-50 text-blue-600 font-medium"
@@ -207,9 +166,9 @@ export function TransactionForm({
               </button>
             ))}
           </div>
-          {errors.category && (
-            <p className="text-[10px] text-red-500 mt-1 ml-16">
-              {errors.category}
+          {errors.category_id && (
+            <p className="text-[10px] text-red-500 mt-3">
+              {errors.category_id.message}
             </p>
           )}
         </div>
@@ -220,9 +179,7 @@ export function TransactionForm({
             type="text"
             placeholder="메모를 입력하세요..."
             className="text-xs text-gray-700 w-full outline-none placeholder:text-gray-300"
-            //제어 컴포넌트
-            value={memo}
-            onChange={(e) => setMemo(e.target.value)}
+            {...register("memo")}
           />
         </div>
       </div>

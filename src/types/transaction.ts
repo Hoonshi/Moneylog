@@ -5,6 +5,19 @@ export interface Transaction extends TransactionRow {
   category: Pick<CategoryRow, "name" | "icon" | "color">;
 }
 
+// 거래 폼 프롭
+export interface TransactionFormProps {
+  initialValues?: {
+    type: "expense" | "income";
+    amount: number;
+    title: string;
+    date: string;
+    memo?: string;
+    category_id: string;
+  };
+  transactionId?: string;
+}
+
 // 거래 리스트 필터
 export interface TransactionFilter {
   type: TransactionType | "all";

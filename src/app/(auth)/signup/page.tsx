@@ -1,26 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignUp } from "@/hooks/useAuth";
 import Link from "next/link";
+import { SignupFormValues, signupSchema } from "@/schema/signupSchema";
 
 export default function SignupPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
   const signUp = useSignUp();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setPasswordError("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    setPasswordError("");
-    signUp.mutate({ email, password, name });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+  });
+
+  const onSubmit = (data: SignupFormValues) => {
+    signUp.mutate({
+      email: data.email,
+      password: data.password,
+      name: data.name,
+    });
   };
 
   return (
@@ -40,18 +42,21 @@ export default function SignupPage() {
               <p className="text-xs text-gray-400 mt-1">새 계정을 만드세요</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
               <div>
                 <label className="text-xs text-gray-600 mb-1 block">이름</label>
                 <div className="border border-gray-200 rounded-lg px-3 py-2">
                   <input
                     className="text-sm text-gray-700 w-full bg-transparent focus:outline-none"
                     placeholder="홍길동"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
+                    {...register("name")}
                   />
                 </div>
+                {errors.name && (
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -63,11 +68,14 @@ export default function SignupPage() {
                     className="text-sm text-gray-700 w-full bg-transparent focus:outline-none"
                     placeholder="email@example.com"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    {...register("email")}
                   />
                 </div>
+                {errors.email && (
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -79,11 +87,14 @@ export default function SignupPage() {
                     className="text-sm text-gray-700 w-full bg-transparent focus:outline-none"
                     placeholder="••••••••"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    {...register("password")}
                   />
                 </div>
+                {errors.password && (
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -95,13 +106,13 @@ export default function SignupPage() {
                     className="text-sm text-gray-700 w-full bg-transparent focus:outline-none"
                     placeholder="••••••••"
                     type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
+                    {...register("confirmPassword")}
                   />
                 </div>
-                {passwordError && (
-                  <p className="text-xs text-red-500 mt-1">{passwordError}</p>
+                {errors.confirmPassword && (
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
               </div>
 
