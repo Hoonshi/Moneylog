@@ -7,15 +7,12 @@ import { DEFAULT_DASHBOARD_PARAMS } from "@/constants/transactionList";
 import { Suspense } from "react";
 import { TransactionContentSkeleton } from "@/components/skeleton/transactionContentSkeleton";
 import NewTransactionButton from "@/components/ui/newTransactionButton";
-import { createClient } from "@/lib/supabase/server";
-
 export default async function TransactionsPage() {
   const queryClient = getQueryClient();
-  const supabase = await createClient();
 
   await queryClient.prefetchQuery({
     queryKey: transactionKeys.list(DEFAULT_DASHBOARD_PARAMS),
-    queryFn: () => transactionList(supabase, DEFAULT_DASHBOARD_PARAMS),
+    queryFn: () => transactionList(DEFAULT_DASHBOARD_PARAMS),
   });
 
   return (

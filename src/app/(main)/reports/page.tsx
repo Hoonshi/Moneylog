@@ -24,11 +24,8 @@ import { MonthlyTrendChartSkeleton } from "@/components/skeleton/monthlyTrendCha
 import { MonthlyComparisonSkeleton } from "@/components/skeleton/monthlyComparisonSkeleton";
 import { DailyTrendChartSkeleton } from "@/components/skeleton/dailyTrendChartSkeleton";
 import { TopExpensesSkeleton } from "@/components/skeleton/topExpensesSkeleton";
-import { createClient } from "@/lib/supabase/server";
-
 export default async function ReportsPage() {
   const queryClient = getQueryClient();
-  const supabase = await createClient();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -50,23 +47,23 @@ export default async function ReportsPage() {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: reportKeys.monthlyTrend(6),
-      queryFn: () => fetchMonthlyTrend(supabase, 6),
+      queryFn: () => fetchMonthlyTrend(6),
     }),
     queryClient.prefetchQuery({
       queryKey: calendarKeys.daily(year, month),
-      queryFn: () => fetchDailyTotal(supabase, year, month),
+      queryFn: () => fetchDailyTotal(year, month),
     }),
     queryClient.prefetchQuery({
       queryKey: dashboardKeys.monthlySummary(year, month),
-      queryFn: () => monthlySummary(supabase, year, month),
+      queryFn: () => monthlySummary(year, month),
     }),
     queryClient.prefetchQuery({
       queryKey: transactionKeys.list(topTransactionParams),
-      queryFn: () => transactionList(supabase, topTransactionParams),
+      queryFn: () => transactionList(topTransactionParams),
     }),
     queryClient.prefetchQuery({
       queryKey: transactionKeys.list(DEFAULT_DASHBOARD_PARAMS),
-      queryFn: () => transactionList(supabase, DEFAULT_DASHBOARD_PARAMS),
+      queryFn: () => transactionList(DEFAULT_DASHBOARD_PARAMS),
     }),
   ]);
 

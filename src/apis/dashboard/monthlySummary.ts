@@ -1,10 +1,7 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 
-export default async function monthlySummary(
-  supabase: SupabaseClient,
-  year: number,
-  month: number,
-) {
+export default async function monthlySummary(year: number, month: number) {
+  const supabase = createClient();
   const { data, error } = await supabase.rpc("get_monthly_summary", {
     p_year: year,
     p_month: month,

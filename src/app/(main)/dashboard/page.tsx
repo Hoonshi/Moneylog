@@ -13,11 +13,8 @@ import { Suspense } from "react";
 import { DashboardSummarySkeleton } from "@/components/skeleton/dashboardSummarySkeleton";
 import { DashboardChartSkeleton } from "@/components/skeleton/dashboardChartSkeleton";
 import { DashboardTransactionListSkeleton } from "@/components/skeleton/dashboardTransactionListSkeleton";
-import { createClient } from "@/lib/supabase/server";
-
 export default async function DashboardPage() {
   const queryClient = getQueryClient();
-  const supabase = await createClient();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -26,15 +23,15 @@ export default async function DashboardPage() {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: dashboardKeys.monthlySummary(year, month),
-      queryFn: () => monthlySummary(supabase, year, month),
+      queryFn: () => monthlySummary(year, month),
     }),
     queryClient.prefetchQuery({
       queryKey: categoryKeys.categorySummary(year, month),
-      queryFn: () => categorySummary(supabase, year, month),
+      queryFn: () => categorySummary(year, month),
     }),
     queryClient.prefetchQuery({
       queryKey: transactionKeys.list(DEFAULT_DASHBOARD_PARAMS),
-      queryFn: () => transactionList(supabase, DEFAULT_DASHBOARD_PARAMS),
+      queryFn: () => transactionList(DEFAULT_DASHBOARD_PARAMS),
     }),
   ]);
 

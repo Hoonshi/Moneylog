@@ -1,10 +1,7 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 
-export async function fetchBudget(
-  supabase: SupabaseClient,
-  year: number,
-  month: number,
-) {
+export async function fetchBudget(year: number, month: number) {
+  const supabase = createClient();
   const { data, error } = await supabase.rpc("get_budget_status", {
     p_year: year,
     p_month: month,
