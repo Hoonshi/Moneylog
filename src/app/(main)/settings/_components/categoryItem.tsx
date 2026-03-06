@@ -3,10 +3,7 @@ import { CategoryRow } from "@/types/database";
 import { SettingsModal } from "./modals/modalIngredients";
 
 const CategoryUpdateModal = dynamic(
-  () =>
-    import("./modals/categoryUpdateModal").then(
-      (mod) => mod.CategoryUpdateModal,
-    ),
+  () => import("./modals/categoryUpdateModal"),
 );
 const CategoryDeleteModal = dynamic(
   () => import("./modals/categoryDeleteModal"),

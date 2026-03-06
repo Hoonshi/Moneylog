@@ -8,10 +8,7 @@ import { useCategories } from "@/hooks/query/useCategories";
 import { useAuth } from "@/hooks/useAuth";
 
 const CategoryCreateModal = dynamic(
-  () =>
-    import("./modals/categoryCreateModal").then(
-      (mod) => mod.CategoryCreateModal,
-    ),
+  () => import("./modals/categoryCreateModal"),
 );
 
 export function CategorySection() {

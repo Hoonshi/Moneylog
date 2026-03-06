@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SettingsModal } from "./modalIngredients";
 import { useAuth, useUpdateProfile } from "@/hooks/useAuth";
 
-export function ProfileEditModal() {
+export default function ProfileEditModal() {
   const { data: user } = useAuth();
   const [name, setName] = useState(user?.user_metadata?.full_name ?? "");
 

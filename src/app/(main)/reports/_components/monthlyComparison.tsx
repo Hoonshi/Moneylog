@@ -3,7 +3,7 @@
 import useMonthlySummary from "@/hooks/query/useMonthlySummary";
 import { useDateStore } from "@/stores/dateStore";
 
-export function MonthlyComparison() {
+export default function MonthlyComparison() {
   const year = useDateStore((state) => state.year);
   const month = useDateStore((state) => state.month);
 

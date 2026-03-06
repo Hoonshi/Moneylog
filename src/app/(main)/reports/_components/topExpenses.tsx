@@ -4,7 +4,7 @@ import { useTransactionList } from "@/hooks/query/useTransactionList";
 import { TransactionListParams } from "@/types/transaction";
 import { useDateStore } from "@/stores/dateStore";
 
-export function TopExpenses() {
+export default function TopExpenses() {
   const year = useDateStore((state) => state.year);
   const month = useDateStore((state) => state.month);
 

@@ -6,10 +6,7 @@ import dynamic from "next/dynamic";
 import { useTransaction } from "@/hooks/query/useTransaction";
 
 const TransactionForm = dynamic(
-  () =>
-    import("@/app/(main)/transactions/new/_components/transactionForm").then(
-      (mod) => mod.TransactionForm,
-    ),
+  () => import("@/app/(main)/transactions/new/_components/transactionForm"),
   { ssr: false },
 );
 

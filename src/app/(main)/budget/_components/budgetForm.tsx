@@ -12,7 +12,7 @@ interface BudgetFormProps {
   onClose?: () => void;
 }
 
-export function BudgetForm({ isOpen, onClose }: BudgetFormProps) {
+export default function BudgetForm({ isOpen, onClose }: BudgetFormProps) {
   const [categoryId, setCategoryId] = useState("");
   const [amount, setAmount] = useState("");
 

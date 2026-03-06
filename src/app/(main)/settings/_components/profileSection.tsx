@@ -6,8 +6,7 @@ import { SettingsModal } from "./modals/modalIngredients";
 import { useAuth } from "@/hooks/useAuth";
 
 const ProfileEditModal = dynamic(
-  () =>
-    import("./modals/profileEditModal").then((mod) => mod.ProfileEditModal),
+  () => import("./modals/profileEditModal"),
 );
 
 export function ProfileSection() {

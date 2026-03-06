@@ -13,7 +13,7 @@ import {
 } from "@/schema/transactionSchema";
 import { TransactionFormProps } from "@/types/transaction";
 
-export function TransactionForm({
+export default function TransactionForm({
   initialValues,
   transactionId,
 }: TransactionFormProps = {}) {

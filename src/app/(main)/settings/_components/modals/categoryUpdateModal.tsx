@@ -20,7 +20,7 @@ interface CategoryModalProps {
   initialData: CategoryFormData & { id: string };
 }
 
-export function CategoryUpdateModal({ initialData }: CategoryModalProps) {
+export default function CategoryUpdateModal({ initialData }: CategoryModalProps) {
   const [form, setForm] = useState<CategoryFormData>({
     id: initialData.id,
     name: initialData.name,

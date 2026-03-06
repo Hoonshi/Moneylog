@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "recharts";
 
-export function DailyTrendChart() {
+export default function DailyTrendChart() {
   const year = useDateStore((state) => state.year);
   const month = useDateStore((state) => state.month);
 

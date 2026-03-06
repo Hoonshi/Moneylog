@@ -2,18 +2,12 @@ import dynamic from "next/dynamic";
 import ReportsHeader from "./_components/reportsHeader";
 
 const MonthlyComparison = dynamic(
-  () =>
-    import("./_components/monthlyComparison").then(
-      (mod) => mod.MonthlyComparison,
-    ),
+  () => import("./_components/monthlyComparison"),
 );
 const DailyTrendChart = dynamic(
-  () =>
-    import("./_components/dailyTrendChart").then((mod) => mod.DailyTrendChart),
+  () => import("./_components/dailyTrendChart"),
 );
-const TopExpenses = dynamic(
-  () => import("./_components/topExpenses").then((mod) => mod.TopExpenses),
-);
+const TopExpenses = dynamic(() => import("./_components/topExpenses"));
 const ReportSummary = dynamic(() => import("./_components/reportSummary"));
 const MonthlyTrend = dynamic(
   () => import("./_components/monthlyTrendChart"),

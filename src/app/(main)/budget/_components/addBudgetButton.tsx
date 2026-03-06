@@ -4,9 +4,7 @@ import dynamic from "next/dynamic";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-const BudgetForm = dynamic(
-  () => import("./budgetForm").then((mod) => mod.BudgetForm),
-);
+const BudgetForm = dynamic(() => import("./budgetForm"));
 
 export default function AddBudgetButton() {
   const [isOpen, setIsOpen] = useState(false);

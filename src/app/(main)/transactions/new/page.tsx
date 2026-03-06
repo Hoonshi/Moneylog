@@ -4,8 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { TransactionFormSkeleton } from "@/components/skeleton/transactionFormSkeleton";
 
 const TransactionForm = dynamic(
-  () =>
-    import("./_components/transactionForm").then((mod) => mod.TransactionForm),
+  () => import("./_components/transactionForm"),
   { loading: () => <TransactionFormSkeleton /> },
 );
 

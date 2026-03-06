@@ -11,7 +11,7 @@ interface CategoryFormData {
   type: "expense" | "income";
   color: string;
 }
-export function CategoryCreateModal() {
+export default function CategoryCreateModal() {
   const [form, setForm] = useState<CategoryFormData>({
     name: "",
     icon: "🍽",
