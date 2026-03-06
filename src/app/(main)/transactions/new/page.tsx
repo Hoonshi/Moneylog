@@ -1,6 +1,13 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { TransactionForm } from "./_components/transactionForm";
+import { TransactionFormSkeleton } from "@/components/skeleton/transactionFormSkeleton";
+
+const TransactionForm = dynamic(
+  () =>
+    import("./_components/transactionForm").then((mod) => mod.TransactionForm),
+  { loading: () => <TransactionFormSkeleton /> },
+);
 
 export default function TransactionNewPage() {
   return (
