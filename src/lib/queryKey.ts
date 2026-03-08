@@ -1,5 +1,10 @@
 import type { TransactionListParams } from "@/types/transaction";
 
+//유저(인증) 쿼리키
+export const userKeys = {
+  all: ["user"] as const,
+};
+
 //거래 관련 쿼리키
 export const transactionKeys = {
   //전체 키

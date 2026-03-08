@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { userKeys } from "@/lib/queryKey";
 import toast from "react-hot-toast";
 
 // 이메일 로그인
@@ -106,7 +107,7 @@ export function useAuth() {
   const supabase = createClient();
 
   return useQuery({
-    queryKey: ["user"],
+    queryKey: userKeys.all,
     queryFn: async () => {
       const {
         data: { user },
@@ -135,7 +136,7 @@ export function useUpdateProfile() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.all });
     },
   });
 }
