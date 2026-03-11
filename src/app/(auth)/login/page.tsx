@@ -19,12 +19,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative w-full h-full bg-white flex flex-col overflow-hidden">
+    <div className="relative max-w-3xl mx-auto w-full h-full bg-white flex flex-col overflow-hidden">
       <div className="flex-1 flex flex-col justify-center px-8">
         {/* Logo */}
         <div className="text-center mb-10">
           <h1 className="text-[40px] font-bold text-gray-800">MONEYLOG</h1>
-          <p className="text-xs text-gray-400 mt-1">나만의 가계부</p>
+          <p className="text-xs text-gray-400 mt-1">
+            현명한 소비 습관을 위하여
+          </p>
         </div>
 
         {/* Form */}
